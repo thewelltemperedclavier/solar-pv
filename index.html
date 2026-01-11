@@ -4,30 +4,65 @@
   <meta charset="utf-8" />
   <title>Solar PV Project</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html, body { height: 100%; margin: 0; }
+    body {
+      /* Local image: place your JPG at assets/Harvard-logo_for_Bio.jpg */
+      background-image: url('assets/Harvard-logo_for_Bio.jpg');
+      background-size: 720px auto; /* 3x the previous 240px */
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: #000;
+    }
+    .page-wrapper {
+      max-width: 900px;
+      margin: 3rem auto;
+      background: rgba(255,255,255,0.9);
+      padding: 1.5rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    h1, h2 { color: #A51C30; }
+
+    /* Ensure background scales down on small screens */
+    @media (max-width: 800px) {
+      body { background-size: 60vw auto; background-position: center 20px; }
+    }
+    .bio-row { display: flex; gap: 1rem; align-items: flex-start; }
+    .bio-photo { width: 180px; max-width: 30%; height: auto; border-radius: 6px; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+    @media (max-width: 600px) { .bio-row { flex-direction: column; } .bio-photo { width: 40vw; max-width: none; } }
+  </style>
 </head>
 
-<body>
-  <h1>Solar PV Project</h1>
+</body>
+  <div class="page-wrapper">
+    
 
-  <p>
-    This website documents our team project on solar photovoltaic (PV) systems.
-  </p>
+    <h2>Our Team</h2>
+    <ul>
+      <li><strong>Awassada Ariyaphuttarat</strong></li>
+      <li><strong>Abdul Rehman</strong></li>
+      <li><strong>Nurym Ayazbayev</strong></li>
+    </ul>
 
-  <h2>Our Team</h2>
-  <ul>
-    <li>Awassada Ariyaphuttarat</li>
-    <li>Abdul Rehman</li>
-    <li>Nurym A (me)</li>
-  </ul>
+    <h2>Project Goal</h2>
+    <p>
+      Our goal is to explore how solar PV contributes to sustainable and affordable energy solutions, and how PV subsidies support the expansion of solar energy adoption, including among the low-income population of California.
+    </p>
 
-  <h2>Project Goal</h2>
-  <p>
-    Our goal is to explore how solar PV contributes to sustainable and affordable energy solutions, and how PV subsidies support the expansion of solar energy adoption.
-
-    Briefly about myself:
-    I hold a MBA in International Business from Ajou University, South Korea, a Bachelor of Arts (B.A.) in International Economics from KazEU, and Bachelor of Laws (LL.B.) from M. Narikbayev KazGUU University. Throughout my career, I have served in various capacities within the Government of Kazakhstan and multilateral organizations. My roles have included development of investment policy, public-private partnerships, budget investments, financial sector development, economic development and trade, state budget planning, and cooperation with international financial institutions and donor countries. In addition to my public service work, I have gained experience working at the Asian Development Bank (Manila, Philippines) and the Eurasian Development Bank (Almaty, Kazakhstan).  
-
-
-  </p>
+    <section aria-labelledby="bio-heading" style="margin-top:1.25rem;">
+      <h2 id="bio-heading">Nurym Ayazbayev, MC/MPA</h2>
+      <div class="bio-row">
+        <img src="assets/Picture_fro_webpage.jpg" alt="Nurym Ayazbayev" class="bio-photo">
+        <div>
+          <p>
+            Nurym holds a MBA in International Business from Ajou University (South Korea), a Bachelor of Arts (B.A.) in International Economics from KazEU, and Bachelor of Laws (LL.B.) from M. Narikbayev KazGUU University, Kazakhstan. Throughout his career, he has served in various capacities within the Government of Kazakhstan and multilateral financial organizations, such ADB, AIIB, and EDB. His roles have included development of investment policy, public-private partnerships, budget investments, financial sector development, economic development and trade, state budget planning, and cooperation with international financial institutions.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
 </body>
 </html>
