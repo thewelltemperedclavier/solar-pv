@@ -527,6 +527,8 @@ code{
   border: 1px solid rgba(11,18,32,.10);
 }
 
+.member-avatar-img{ display:block; width:80px; height:80px; border-radius:8px; object-fit:cover; }
+
 .member-name{
   margin:0;
   font-size: 16px;
