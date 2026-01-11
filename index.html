@@ -1,120 +1,207 @@
-```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Demo Website</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Sunlight Ledger is a transparency project tracking where solar subsidies flow, where capacity is built, and who benefits." />
+  <title>Sunlight Ledger</title>
 
-  <style>
-    :root{
-      --bg:#fefcf5;
-      --text:#121212;
-      --muted:#5b5b5b;
-      --card:#ffffff;
-      --border:rgba(0,0,0,.08);
-      --shadow:0 18px 40px rgba(0,0,0,.08);
-      --radius:18px;
-    }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet" />
 
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-    }
-
-    .container{
-      width:min(1100px,92%);
-      margin:0 auto;
-    }
-
-    /* Hero */
-    .hero{
-      padding:90px 0 40px;
-    }
-    .hero h1{
-      margin:0 0 14px;
-      font-size:clamp(40px,5vw,64px);
-      letter-spacing:-0.02em;
-      line-height:1.05;
-    }
-    .hero p{
-      max-width:720px;
-      margin:0;
-      color:var(--muted);
-      font-size:18px;
-      line-height:1.6;
-    }
-
-    /* Card */
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:0 1px 0 rgba(0,0,0,.03);
-      padding:18px;
-      max-width:720px;
-    }
-
-    .actions{
-      margin-top:14px;
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(0,0,0,.02);
-      color:var(--text);
-      text-decoration:none;
-      font-size:14px;
-      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-    }
-    .btn:hover{
-      transform:translateY(-2px);
-      box-shadow:var(--shadow);
-      border-color:rgba(0,0,0,.16);
-    }
-
-    @media (max-width: 620px){
-      .hero{ padding:70px 0 30px; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <header class="site-header">
+    <div class="container-wide">
+      <div class="nav">
+        <a class="brand" href="./" aria-label="Home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>
+            <span class="brand-name">Sunlight Ledger</span>
+            <span class="brand-sub">Subsidies • Capacity • Equity</span>
+          </span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="dashboard/">Dashboard</a>
+          <a href="our-team/">Team</a>
+          <a href="#method">Method</a>
+          <a href="#sources">Sources</a>
+        </nav>
+
+        <div class="nav-cta">
+          <a class="btn" href="our-team/">About</a>
+          <a class="btn btn-primary" href="dashboard/">Open dashboard →</a>
+
+          <button class="btn nav-menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav">
+            Menu
+          </button>
+        </div>
+
+        <div class="mobile-nav" id="mobileNav" hidden>
+          <a href="dashboard/">Dashboard</a>
+          <a href="our-team/">Team</a>
+          <a href="#method">Method</a>
+          <a href="#sources">Sources</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
   <main>
     <section class="hero">
-      <div class="container">
-        <h1>Our Demonstration Website</h1>
-        <p>
-          A simple site showcasing our work, with a clean layout and quick links to the essentials.
-        </p>
+      <div class="container-wide">
+        <div class="hero-frame" role="img" aria-label="Hero image">
+          <div class="hero-inner">
+            <div class="kicker">
+              <span class="kicker-dot" aria-hidden="true"></span>
+              A public-interest transparency project
+            </div>
 
-        <div class="card" style="margin-top:22px;">
-          <div style="color:var(--muted); font-size:14px; line-height:1.6;">
-            Want to see who’s behind the project?
+            <h1>Follow the money in solar.</h1>
+
+            <p>
+              We map where solar capacity is being built, how subsidy dollars are distributed,
+              and what the data implies about who benefits — with an audit trail that stands up to scrutiny.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="dashboard/">Explore the dashboard →</a>
+              <a class="btn" href="#method">How it works</a>
+            </div>
+
+            <div class="hero-meta">
+              <span><strong>Granularity:</strong> ZIP / tract where available</span>
+              <span><strong>Principle:</strong> sourceable, linkable, reproducible</span>
+              <span><strong>Use cases:</strong> reporting, oversight, policy design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="method">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>What this makes possible</h2>
+            <p class="lead">
+              Not another infographic. A durable interface for answering the same uncomfortable question,
+              repeatedly, as programmes evolve: <em>where does the support land?</em>
+            </p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card span-4">
+            <h3>Subsidy flow, by place</h3>
+            <p>Track dollars by geography — and keep the chain of sources visible.</p>
+          </div>
+          <div class="card span-4">
+            <h3>Capacity buildout</h3>
+            <p>See where installations accumulate over time and where they don’t.</p>
+          </div>
+          <div class="card span-4">
+            <h3>Equity lens</h3>
+            <p>Compare subsidy intensity against income/wealth proxies and demographics.</p>
           </div>
 
-          <div class="actions">
-            <a class="btn" href="our-team/index.html">Meet the team</a>
-            <!-- Optional second link if you want one later:
-            <a class="btn" href="about.html">About</a>
-            -->
+          <div class="card span-6">
+            <h3>Designed for scrutiny</h3>
+            <p>
+              Definitions, assumptions, and caveats are first-class UI — not hidden in a PDF appendix.
+            </p>
+          </div>
+          <div class="card span-6">
+            <h3>Built for embedding</h3>
+            <p>
+              Shareable views for newsrooms and briefings — and stable links you can cite.
+            </p>
+          </div>
+        </div>
+
+        <div class="cta">
+          <div class="copy">
+            <h3>Start with the dashboard</h3>
+            <p>Maps, filters, and the first D3 modules live here.</p>
+          </div>
+          <div>
+            <a class="btn btn-primary" href="dashboard/">Open dashboard →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sources">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Data you can actually cite</h2>
+            <p class="lead">
+              The point is not to be flashy — it’s to be defensible. Each dataset gets a plain-language definition and a link back to origin.
+            </p>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="panel">
+            <div class="panel-inner">
+              <div class="eyebrow">Transparency standard</div>
+              <h3>Sources, joins, and caveats are first-class UI</h3>
+              <p>
+                We show how records are aggregated, when ZIP codes are proxies, and what breaks when boundaries or reporting change —
+                without turning the interface into a wall of text.
+              </p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-inner">
+              <div class="eyebrow">Audience</div>
+              <h3>Journalists • watchdogs • lawmakers</h3>
+              <p>
+                Built for people who need to validate claims quickly and reproduce results without “trust me” screenshots.
+              </p>
+              <div style="height:12px"></div>
+              <a class="btn" href="our-team/">Meet the team →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid" style="margin-top:14px;">
+          <div class="card span-4">
+            <h3>Plain-English definitions</h3>
+            <p>Terms mean what the underlying programme says they mean.</p>
+          </div>
+          <div class="card span-4">
+            <h3>Versioned methodology</h3>
+            <p>When assumptions change, the audit trail stays intact.</p>
+          </div>
+          <div class="card span-4">
+            <h3>Export-friendly views</h3>
+            <p>Tables and filtered cuts should be usable outside the interface.</p>
           </div>
         </div>
       </div>
     </section>
   </main>
+
+  <footer class="footer">
+    <div class="container-wide">
+      <div class="footer-row">
+        <span>© <span id="year"></span> Sunlight Ledger</span>
+        <span style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="dashboard/">Dashboard</a>
+          <a href="our-team/">Team</a>
+          <a href="#sources">Sources</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
 </body>
 </html>
-```

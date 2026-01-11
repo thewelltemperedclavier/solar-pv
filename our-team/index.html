@@ -1,260 +1,185 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Us</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="The team behind Sunlight Ledger." />
+  <title>Team — Sunlight Ledger</title>
 
-  <style>
-    :root{
-      --bg: #fefcf5;
-      --text: #121212;
-      --muted: #5b5b5b;
-      --card: #ffffff;
-      --border: rgba(0,0,0,.08);
-      --shadow: 0 18px 40px rgba(0,0,0,.08);
-      --radius: 18px;
-    }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet" />
 
-    * { box-sizing: border-box; }
-    body{
-      margin:0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    .container{
-      width: min(1100px, 92%);
-      margin: 0 auto;
-    }
-
-    /* Hero */
-    .hero{
-      padding: 90px 0 40px;
-    }
-    .hero h1{
-      margin: 0 0 14px;
-      font-size: clamp(40px, 5vw, 64px);
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-    }
-    .hero p{
-      max-width: 720px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-    /* People grid */
-    .grid{
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 18px;
-      padding: 26px 0 80px;
-    }
-
-    .person{
-      grid-column: span 4;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 1px 0 rgba(0,0,0,.03);
-      transition: transform .18s ease, box-shadow .18s ease;
-      position: relative;
-    }
-
-    .person:hover{
-      transform: translateY(-4px);
-      box-shadow: var(--shadow);
-    }
-
-    .person a.stretch{
-      position:absolute;
-      inset:0;
-      text-indent:-9999px;
-      overflow:hidden;
-    }
-
-    .photo{
-      aspect-ratio: 1 / 1;
-      width: 100%;
-      background: linear-gradient(135deg, rgba(0,0,0,.06), rgba(0,0,0,.02));
-      display: grid;
-      place-items: center;
-    }
-
-    .photo img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display:block;
-    }
-
-    .content{
-      padding: 16px 16px 18px;
-    }
-
-    .name{
-      margin: 0;
-      font-size: 18px;
-      letter-spacing: -0.01em;
-      display:flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .role{
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.45;
-    }
-
-    .meta{
-      display:flex;
-      gap: 12px;
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      padding: 8px 10px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(0,0,0,.02);
-      white-space: nowrap;
-    }
-
-    .links{
-      margin-top: 12px;
-      display:flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .links a{
-      color: var(--text);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(0,0,0,.25);
-      padding-bottom: 2px;
-      font-size: 13px;
-    }
-    .links a:hover{ border-bottom-color: rgba(0,0,0,.6); }
-
-    /* Small screens */
-    @media (max-width: 980px){
-      .person{ grid-column: span 6; }
-    }
-    @media (max-width: 620px){
-      .hero{ padding: 70px 0 30px; }
-      .person{ grid-column: span 12; }
-    }
-  </style>
+  <link rel="stylesheet" href="../style.css" />
 </head>
 
 <body>
+  <header class="site-header">
+    <div class="container-wide">
+      <div class="nav">
+        <a class="brand" href="../" aria-label="Home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>
+            <span class="brand-name">Sunlight Ledger</span>
+            <span class="brand-sub">Subsidies • Capacity • Equity</span>
+          </span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="../dashboard/">Dashboard</a>
+          <a href="./">Team</a>
+          <a href="../#method">Method</a>
+          <a href="../#sources">Sources</a>
+        </nav>
+
+        <div class="nav-cta">
+          <a class="btn" href="./">About</a>
+          <a class="btn btn-primary" href="../dashboard/">Open dashboard →</a>
+
+          <button class="btn nav-menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav">
+            Menu
+          </button>
+        </div>
+
+        <div class="mobile-nav" id="mobileNav" hidden>
+          <a href="../dashboard/">Dashboard</a>
+          <a href="./">Team</a>
+          <a href="../#method">Method</a>
+          <a href="../#sources">Sources</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
   <main>
-    <section class="hero">
-      <div class="container">
-        <h1>About Us</h1>
-        <p>
-          We’re a three-person team building <strong>[Project Name]</strong> to make <strong>[what you’re solving]</strong>
-          clearer, faster, and more usable for <strong>[who it’s for]</strong>.
-        </p>
+    <section class="page-hero">
+      <div class="container-wide">
+        <div class="page-hero-frame">
+          <div class="page-hero-inner">
+            <div class="kicker">
+              <span class="kicker-dot" aria-hidden="true"></span>
+              Partnership
+            </div>
+
+            <h1 class="page-title">Team</h1>
+            <p class="page-lead">
+              We build sourceable, reproducible views of where solar support lands — designed for scrutiny by journalists,
+              watchdogs, and policymakers.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section>
+    <section class="section" style="padding-top: 10px;">
       <div class="container">
-        <div class="grid">
-
-          <!-- Person 1 -->
-          <article class="person">
-            <a class="stretch" href="#" aria-label="Open profile for Person One">Person One</a>
-            <div class="photo">
-              <!-- Replace with a real headshot -->
-              <img src="https://via.placeholder.com/800x800.png?text=Headshot" alt="Person One headshot" loading="lazy">
+        <div class="team-grid">
+          <article class="member-card">
+            <div class="member-top">
+              <div class="member-avatar" aria-hidden="true">AR</div>
+              <div class="member-meta">
+                <h2 class="member-name">Member Name</h2>
+                <div class="member-role">Co-founder • Policy & Research</div>
+              </div>
             </div>
-            <div class="content">
-              <h3 class="name">
-                <span>Person One</span>
-                <span style="color:var(--muted); font-weight:500; font-size:13px;">Co-lead</span>
-              </h3>
-              <div class="role">
-                Focus: product direction & storytelling. Previously: <em>[school/company]</em>.
-              </div>
-              <div class="meta">
-                <span class="pill">Workstream: Strategy</span>
-                <span class="pill">Location: Cambridge</span>
-              </div>
-              <div class="links">
-                <a href="#" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="mailto:person1@example.com">Email</a>
-              </div>
+
+            <p class="member-bio">
+              Focused on programme design, distributional analysis, and making public data usable in real decisions.
+            </p>
+
+            <div class="member-tags" aria-label="Specialisms">
+              <span class="tag">Public finance</span>
+              <span class="tag">Energy policy</span>
+              <span class="tag">Methods</span>
+            </div>
+
+            <div class="member-links">
+              <a class="link" href="#">LinkedIn</a>
+              <span class="dot">•</span>
+              <a class="link" href="#">Email</a>
             </div>
           </article>
 
-          <!-- Person 2 -->
-          <article class="person">
-            <a class="stretch" href="#" aria-label="Open profile for Person Two">Person Two</a>
-            <div class="photo">
-              <img src="https://via.placeholder.com/800x800.png?text=Headshot" alt="Person Two headshot" loading="lazy">
+          <article class="member-card">
+            <div class="member-top">
+              <div class="member-avatar" aria-hidden="true">BM</div>
+              <div class="member-meta">
+                <h2 class="member-name">Member Name</h2>
+                <div class="member-role">Co-founder • Data & Engineering</div>
+              </div>
             </div>
-            <div class="content">
-              <h3 class="name">
-                <span>Person Two</span>
-                <span style="color:var(--muted); font-weight:500; font-size:13px;">Co-lead</span>
-              </h3>
-              <div class="role">
-                Focus: data & research. Interested in <em>[topic]</em> and <em>[topic]</em>.
-              </div>
-              <div class="meta">
-                <span class="pill">Workstream: Data</span>
-                <span class="pill">Location: Boston</span>
-              </div>
-              <div class="links">
-                <a href="#" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="mailto:person2@example.com">Email</a>
-              </div>
+
+            <p class="member-bio">
+              Builds the pipeline and front-end: clean joins, clear definitions, and fast interactive visualisation with an audit trail.
+            </p>
+
+            <div class="member-tags" aria-label="Specialisms">
+              <span class="tag">Data engineering</span>
+              <span class="tag">D3</span>
+              <span class="tag">Mapping</span>
+            </div>
+
+            <div class="member-links">
+              <a class="link" href="#">GitHub</a>
+              <span class="dot">•</span>
+              <a class="link" href="#">Email</a>
             </div>
           </article>
 
-          <!-- Person 3 -->
-          <article class="person">
-            <a class="stretch" href="#" aria-label="Open profile for Person Three">Person Three</a>
-            <div class="photo">
-              <img src="https://via.placeholder.com/800x800.png?text=Headshot" alt="Person Three headshot" loading="lazy">
+          <article class="member-card">
+            <div class="member-top">
+              <div class="member-avatar" aria-hidden="true">CS</div>
+              <div class="member-meta">
+                <h2 class="member-name">Member Name</h2>
+                <div class="member-role">Co-founder • Partnerships</div>
+              </div>
             </div>
-            <div class="content">
-              <h3 class="name">
-                <span>Person Three</span>
-                <span style="color:var(--muted); font-weight:500; font-size:13px;">Builder</span>
-              </h3>
-              <div class="role">
-                Focus: engineering & design systems. Previously: <em>[school/company]</em>.
-              </div>
-              <div class="meta">
-                <span class="pill">Workstream: Build</span>
-                <span class="pill">Location: New York</span>
-              </div>
-              <div class="links">
-                <a href="#" target="_blank" rel="noopener">GitHub</a>
-                <a href="mailto:person3@example.com">Email</a>
-              </div>
+
+            <p class="member-bio">
+              Works with newsrooms and institutions to ensure the tool answers real questions — and can be embedded in workflows.
+            </p>
+
+            <div class="member-tags" aria-label="Specialisms">
+              <span class="tag">Partnerships</span>
+              <span class="tag">Product</span>
+              <span class="tag">Comms</span>
+            </div>
+
+            <div class="member-links">
+              <a class="link" href="#">LinkedIn</a>
+              <span class="dot">•</span>
+              <a class="link" href="#">Email</a>
             </div>
           </article>
+        </div>
 
+        <div class="cta">
+          <div class="copy">
+            <h3>Contact</h3>
+            <p>For press, data questions, or collaboration, reach out — we aim to respond quickly and concretely.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn btn-primary" href="#">Email the team →</a>
+            <a class="btn" href="../dashboard/">View dashboard</a>
+          </div>
         </div>
       </div>
     </section>
   </main>
+
+  <footer class="footer">
+    <div class="container-wide">
+      <div class="footer-row">
+        <span>© <span id="year"></span> Sunlight Ledger</span>
+        <span style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="../dashboard/">Dashboard</a>
+          <a href="./">Team</a>
+          <a href="../#sources">Sources</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js" defer></script>
 </body>
 </html>
