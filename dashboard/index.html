@@ -3,29 +3,181 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sunlight Ledger — Dashboard</title>
+  <meta name="description" content="Sunlight Ledger dashboard — California solar PV by ZIP (ZCTA)." />
+  <title>Dashboard — Sunlight Ledger</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="./dashboard.css" />
 </head>
+
 <body>
-  <main class="wrap">
-    <section class="card">
-      <div class="topbar">
-        <div class="title">California Solar PV — by ZIP (ZCTA)</div>
-        <div class="controls">
-          <span>Metric</span>
-          <select id="metric"></select>
+  <header class="site-header">
+    <div class="container-wide">
+      <div class="nav">
+        <a class="brand" href="../" aria-label="Home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>
+            <span class="brand-name">Sunlight Ledger</span>
+            <span class="brand-sub">Subsidies • Capacity • Equity</span>
+          </span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="./">Dashboard</a>
+          <a href="../our-team/">Team</a>
+          <a href="../#method">Method</a>
+          <a href="../#sources">Sources</a>
+        </nav>
+
+        <div class="nav-cta">
+          <a class="btn" href="../our-team/">About</a>
+          <a class="btn btn-primary" href="./">Open dashboard →</a>
+
+          <button class="btn nav-menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav">
+            Menu
+          </button>
+        </div>
+
+        <div class="mobile-nav" id="mobileNav" hidden>
+          <a href="./">Dashboard</a>
+          <a href="../our-team/">Team</a>
+          <a href="../#method">Method</a>
+          <a href="../#sources">Sources</a>
         </div>
       </div>
+    </div>
+  </header>
 
-      <div id="chart">
-        <div class="tooltip" id="tt"></div>
+  <main>
+    <section class="page-hero">
+      <div class="container-wide">
+        <div class="page-hero-frame">
+          <div class="page-hero-inner">
+            <div class="kicker">
+              <span class="kicker-dot" aria-hidden="true"></span>
+              Stats & Charts
+            </div>
+
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-lead">
+              California solar PV, aggregated by ZIP (ZCTA). Switch metrics, inspect distributions, and audit what’s shown.
+            </p>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="hint">Tip: scroll/trackpad to zoom, drag to pan.</div>
+    <section class="section" style="padding-top: 10px;">
+      <div class="container">
+        <div class="dashboard-shell">
+          <!-- LEFT: “DGStats-like” filter area -->
+          <aside class="sidebar">
+            <div class="dash-card">
+              <div class="dash-card-title">Filters</div>
+
+              <div class="form-row">
+                <label for="metric">Data view</label>
+                <select id="metric"></select>
+              </div>
+
+              <div class="form-row">
+                <label for="zipSearch">Find a ZIP</label>
+                <input id="zipSearch" inputmode="numeric" placeholder="e.g., 94110" maxlength="5" />
+                <div class="micro">Tip: click a ZIP on the map to pin it.</div>
+              </div>
+
+              <div class="btn-row">
+                <button class="btn" id="resetBtn" type="button">Reset view</button>
+              </div>
+            </div>
+
+            <div class="dash-card" style="margin-top:12px;">
+              <div class="dash-card-title">This dataset</div>
+              <div class="mini-kpis">
+                <div class="mini-kpi">
+                  <div class="k">ZIPs in CSV</div>
+                  <div class="v" id="kpiCsv">—</div>
+                </div>
+                <div class="mini-kpi">
+                  <div class="k">Matched shapes</div>
+                  <div class="v" id="kpiMatched">—</div>
+                </div>
+              </div>
+              <div class="micro" style="margin-top:8px;">
+                Boundaries: ZIP/ZCTA polygons. Values: aggregated totals by ZIP.
+              </div>
+            </div>
+
+            <div class="dash-card" style="margin-top:12px;">
+              <div class="dash-card-title">Status</div>
+              <div class="status" id="status">Loading…</div>
+            </div>
+          </aside>
+
+          <!-- RIGHT: charts -->
+          <section class="mainpanel">
+            <div class="chart-grid">
+              <div class="chart-card span-12">
+                <div class="chart-head">
+                  <div>
+                    <div class="chart-title">Territory and location</div>
+                    <div class="chart-sub">Choropleth by ZIP (scroll to zoom, drag to pan)</div>
+                  </div>
+                  <div class="chip" id="activeMetricChip">—</div>
+                </div>
+
+                <div class="viz-stage" id="mapStage">
+                  <div class="tooltip" id="tt" aria-hidden="true"></div>
+                </div>
+
+                <div class="legend-wrap" id="legend"></div>
+              </div>
+
+              <div class="chart-card span-6">
+                <div class="chart-head">
+                  <div>
+                    <div class="chart-title">Top ZIPs</div>
+                    <div class="chart-sub">Highest values for the selected metric</div>
+                  </div>
+                </div>
+                <div class="mini-stage" id="barsStage"></div>
+              </div>
+
+              <div class="chart-card span-6">
+                <div class="chart-head">
+                  <div>
+                    <div class="chart-title">Equity lens</div>
+                    <div class="chart-sub">Equity share vs selected metric</div>
+                  </div>
+                </div>
+                <div class="mini-stage" id="scatterStage"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
     </section>
   </main>
 
+  <footer class="footer">
+    <div class="container-wide">
+      <div class="footer-row">
+        <span>© <span id="year"></span> Sunlight Ledger</span>
+        <span style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="./">Dashboard</a>
+          <a href="../our-team/">Team</a>
+          <a href="../#sources">Sources</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="../js/main.js" defer></script>
   <script type="module" src="../js/viz.js"></script>
 </body>
 </html>
