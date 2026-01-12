@@ -4,28 +4,134 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Sunlight Ledger — Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="../style.css" />
+  <!-- If you created dashboard/dashboard.css, keep this line. If not, delete it. -->
+  <link rel="stylesheet" href="./dashboard.css" />
 </head>
+
 <body>
-  <main class="wrap">
-    <section class="card">
-      <div class="topbar">
-        <div class="title">California Solar PV — by ZIP (ZCTA)</div>
-        <div class="controls">
-          <span>Metric</span>
-          <select id="metric"></select>
+  <header class="site-header">
+    <div class="container-wide">
+      <div class="nav">
+        <a class="brand" href="../" aria-label="Home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>
+            <span class="brand-name">Sunlight Ledger</span>
+            <span class="brand-sub">Subsidies • Capacity • Equity</span>
+          </span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="./">Dashboard</a>
+          <a href="../our-team/">Team</a>
+          <a href="../#method">Method</a>
+          <a href="../#sources">Sources</a>
+        </nav>
+
+        <div class="nav-cta">
+          <a class="btn" href="../our-team/">About</a>
+          <a class="btn btn-primary" href="./">Open dashboard →</a>
+          <button class="btn nav-menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav">
+            Menu
+          </button>
+        </div>
+
+        <div class="mobile-nav" id="mobileNav" hidden>
+          <a href="./">Dashboard</a>
+          <a href="../our-team/">Team</a>
+          <a href="../#method">Method</a>
+          <a href="../#sources">Sources</a>
         </div>
       </div>
+    </div>
+  </header>
 
-      <div id="chart">
-        <div class="tooltip" id="tt"></div>
+  <main>
+    <section class="section" style="padding-top:16px;">
+      <div class="container">
+        <div class="dashboard-shell">
+          <aside class="sidebar">
+            <h2 style="margin:0 0 12px 0;">Filters</h2>
+
+            <div class="form-row">
+              <label for="metric">Metric</label>
+              <select id="metric"></select>
+            </div>
+
+            <div class="form-row">
+              <label for="zipSearch">Find a ZIP</label>
+              <input id="zipSearch" inputmode="numeric" placeholder="e.g., 94110" maxlength="5" />
+            </div>
+
+            <div class="btn-row">
+              <button class="btn" id="resetBtn" type="button">Reset view</button>
+            </div>
+
+            <div style="height:14px"></div>
+            <div class="micro">Status</div>
+            <div class="status" id="status">Loading…</div>
+
+            <div style="height:10px"></div>
+            <div class="mini-kpis">
+              <div class="mini-kpi"><div class="k">ZIPs in CSV</div><div class="v" id="kpiCsv">—</div></div>
+              <div class="mini-kpi"><div class="k">Matched shapes</div><div class="v" id="kpiMatched">—</div></div>
+            </div>
+          </aside>
+
+          <section class="mainpanel">
+            <div class="chart-head" style="display:flex; justify-content:space-between; gap:12px; align-items:flex-start;">
+              <div>
+                <div style="font-weight:700;">Territory and location</div>
+                <div style="color:var(--muted2); font-size:13px; margin-top:4px;">Choropleth by ZIP</div>
+              </div>
+              <div class="chip" id="activeMetricChip">—</div>
+            </div>
+
+            <div class="viz-stage" id="mapStage">
+              <div class="tooltip" id="tt" aria-hidden="true"></div>
+            </div>
+
+            <div id="legend" style="display:flex; justify-content:flex-end; margin-top:10px;"></div>
+
+            <div style="height:14px"></div>
+
+            <div class="grid" style="grid-template-columns: repeat(12, 1fr);">
+              <div class="card span-6">
+                <h3 style="margin-top:0;">Top ZIPs</h3>
+                <div id="barsStage" class="mini-stage"></div>
+              </div>
+              <div class="card span-6">
+                <h3 style="margin-top:0;">Equity lens</h3>
+                <div id="scatterStage" class="mini-stage"></div>
+              </div>
+            </div>
+
+          </section>
+        </div>
       </div>
-
-      <div class="hint">Tip: scroll/trackpad to zoom, drag to pan.</div>
     </section>
   </main>
 
+  <footer class="footer">
+    <div class="container-wide">
+      <div class="footer-row">
+        <span>© <span id="year"></span> Sunlight Ledger</span>
+        <span style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="./">Dashboard</a>
+          <a href="../our-team/">Team</a>
+          <a href="../#sources">Sources</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="../js/main.js" defer></script>
   <script type="module" src="../js/viz.js"></script>
 </body>
 </html>
