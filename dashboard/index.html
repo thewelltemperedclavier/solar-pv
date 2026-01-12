@@ -2,154 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Dashboard — Sunlight Ledger." />
-  <title>Dashboard — Sunlight Ledger</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet" />
-
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sunlight Ledger — Dashboard</title>
   <link rel="stylesheet" href="../style.css" />
 </head>
-
 <body>
-  <header class="site-header">
-    <div class="container-wide">
-      <div class="nav">
-        <a class="brand" href="../" aria-label="Home">
-          <span class="brand-mark" aria-hidden="true"></span>
-          <span>
-            <span class="brand-name">Sunlight Ledger</span>
-            <span class="brand-sub">Subsidies • Capacity • Equity</span>
-          </span>
-        </a>
-
-        <nav class="nav-links" aria-label="Primary">
-          <a href="./">Dashboard</a>
-          <a href="../our-team/">Team</a>
-          <a href="../#method">Method</a>
-          <a href="../#sources">Sources</a>
-        </nav>
-
-        <div class="nav-cta">
-          <a class="btn" href="../our-team/">About</a>
-          <a class="btn btn-primary" href="./">Open dashboard →</a>
-
-          <button class="btn nav-menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav">
-            Menu
-          </button>
-        </div>
-
-        <div class="mobile-nav" id="mobileNav" hidden>
-          <a href="./">Dashboard</a>
-          <a href="../our-team/">Team</a>
-          <a href="../#method">Method</a>
-          <a href="../#sources">Sources</a>
+  <main class="wrap">
+    <section class="card">
+      <div class="topbar">
+        <div class="title">California Solar PV — by ZIP (ZCTA)</div>
+        <div class="controls">
+          <span>Metric</span>
+          <select id="metric"></select>
         </div>
       </div>
-    </div>
-  </header>
 
-  <main>
-    <section class="page-hero">
-      <div class="container-wide">
-        <div class="page-hero-frame">
-          <div class="page-hero-inner">
-            <div class="kicker">
-              <span class="kicker-dot" aria-hidden="true"></span>
-              Dashboard
-            </div>
-
-            <h1 class="page-title">Explore</h1>
-            <p class="page-lead">
-              Start with a map, then layer subsidy intensity, capacity buildout, and equity metrics. Every view is designed to be cited.
-            </p>
-          </div>
-        </div>
+      <div id="chart">
+        <div class="tooltip" id="tt"></div>
       </div>
-    </section>
 
-    <section class="section" style="padding-top: 10px;">
-      <div class="container">
-        <div class="dashboard-shell">
-          <aside class="sidebar">
-            <h3 style="margin:0 0 8px; font-size:16px;">Filters</h3>
-            <p style="margin:0 0 14px; color: var(--muted); font-size:14px;">
-              Placeholder UI. We’ll wire real controls as we add datasets.
-            </p>
-
-            <div class="card" style="padding:14px;">
-              <div style="font-size:12px; color:var(--muted2); letter-spacing:.08em; text-transform:uppercase;">Geography</div>
-              <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
-                <span class="tag">ZIP</span>
-                <span class="tag">Tract</span>
-                <span class="tag">County</span>
-              </div>
-            </div>
-
-            <div style="height:12px;"></div>
-
-            <div class="card" style="padding:14px;">
-              <div style="font-size:12px; color:var(--muted2); letter-spacing:.08em; text-transform:uppercase;">Layer</div>
-              <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
-                <span class="tag">Subsidies</span>
-                <span class="tag">Capacity</span>
-                <span class="tag">Equity</span>
-              </div>
-            </div>
-
-            <div style="height:14px;"></div>
-
-            <a class="btn btn-primary" href="#" style="width:100%;">Export view →</a>
-          </aside>
-
-          <section class="mainpanel">
-            <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-              <div>
-                <h3 style="margin:0; font-size:16px;">Map</h3>
-                <p style="margin:6px 0 0; color:var(--muted); font-size:14px;">
-                  D3 placeholder — we’ll replace this with the actual visualisation module.
-                </p>
-              </div>
-              <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                <a class="btn" href="../#sources">Sources</a>
-                <a class="btn btn-primary" href="../our-team/">Contact</a>
-              </div>
-            </div>
-
-            <div style="height:14px;"></div>
-
-            <div class="viz-stage" id="viz"></div>
-          </section>
-        </div>
-      </div>
+      <div class="hint">Tip: scroll/trackpad to zoom, drag to pan.</div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container-wide">
-      <div class="footer-row">
-        <span>© <span id="year"></span> Sunlight Ledger</span>
-        <span style="display:flex; gap:14px; flex-wrap:wrap;">
-          <a href="./">Dashboard</a>
-          <a href="../our-team/">Team</a>
-          <a href="../#sources">Sources</a>
-        </span>
-      </div>
-    </div>
-  </footer>
-
-  <script src="../js/main.js" defer></script>
-
-  <!-- Optional: D3 hook (kept minimal) -->
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-  <script>
-    // Tiny placeholder so you know the viz container is wired
-    const el = document.getElementById("viz");
-    if (el) {
-      el.innerHTML = "<div style='padding:18px;color:rgba(11,18,32,.60);font-size:14px;'>D3 will render here.</div>";
-    }
-  </script>
+  <script type="module" src="../js/viz.js"></script>
 </body>
 </html>
