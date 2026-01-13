@@ -658,3 +658,32 @@ code{
   html{ scroll-behavior:auto; }
   *{ transition:none !important; }
 }
+
+/* -----------------------------
+   Quick Guide — collapsible/drop-in
+------------------------------ */
+.card.quick-guide{ cursor:default; }
+.card.quick-guide h3{ cursor:pointer; }
+.card.quick-guide .guide-content{
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: max-height .6s cubic-bezier(.2,.9,.2,1), opacity .45s ease, transform .45s ease;
+}
+.card.quick-guide.expanded .guide-content{
+  max-height: 2000px; /* large enough to reveal content */
+  opacity: 1;
+  transform: translateY(0);
+}
+.card.quick-guide .guide-content > *{ margin-top: 12px; }
+
+/* Ensure the intended-use list matches the paragraph styling */
+.card.quick-guide .guide-content p,
+.card.quick-guide .guide-content ul,
+.card.quick-guide .guide-content li{
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}

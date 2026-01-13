@@ -37,3 +37,22 @@
     });
   });
 })();
+
+// Quick Guide: expand on click only (remove auto-expand on scroll)
+(function(){
+  const guideCard = document.querySelector('.card.quick-guide');
+  if (!guideCard) return;
+
+  const header = guideCard.querySelector('h3');
+  const content = guideCard.querySelector('.guide-content');
+  if (!header || !content) return;
+
+  header.addEventListener('click', () => {
+    guideCard.classList.toggle('expanded');
+    if (guideCard.classList.contains('expanded')) {
+      content.setAttribute('tabindex','-1');
+    } else {
+      content.removeAttribute('tabindex');
+    }
+  });
+})();
