@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="FAQ and methodology guide for Sunlight Ledger, a solar subsidy transparency project." />
+  <title>FAQ — Sunlight Ledger</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .faq-hero {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(255, 255, 255, 1) 100%), 
+                  url(/solar-pv/assets/img/faq-hero.jpg) center / cover no-repeat;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .faq-hero-content {
+      z-index: 10;
+      padding: 2rem;
+      max-width: 600px;
+    }
+
+    .faq-hero h1 {
+      font-size: 2.5rem;
+      margin: 0 0 0.5rem 0;
+      font-weight: 700;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .faq-hero p {
+      font-size: 1.1rem;
+      margin: 0;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .faq-section {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .faq-section h2 {
+      font-size: 1.8rem;
+      margin: 2rem 0 1rem 0;
+      color: #333;
+      border-bottom: 2px solid #0066cc;
+      padding-bottom: 0.5rem;
+    }
+
+    .faq-intro {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #555;
+      margin: 1.5rem 0 2rem 0;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      margin: 2rem 0;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .faq-list {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0;
+    }
+
+    .faq-list li {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: #f9f9f9;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .faq-list li:hover {
+      box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+    }
+
+    .faq-list h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1.2rem;
+      color: #0066cc;
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .faq-list .question-number {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #0066cc;
+      min-width: 40px;
+    }
+
+    .faq-list p {
+      margin: 0.5rem 0 0 0;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    .metric-group {
+      margin: 1.5rem 0;
+      background: white;
+      padding: 1rem;
+      border-radius: 4px;
+    }
+
+    .metric-group strong {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    .metric-list {
+      list-style: none;
+      padding-left: 1rem;
+      margin: 0.5rem 0;
+    }
+
+    .metric-list li {
+      margin: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .metric-list li:before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #0066cc;
+      font-weight: bold;
+    }
+
+    .faq-sources {
+      background: #f0f9ff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+
+    .faq-sources p {
+      margin: 0.5rem 0;
+      line-height: 1.7;
+    }
+
+    .faq-sources a {
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .faq-sources a:hover {
+      text-decoration: underline;
+    }
+
+    .faq-footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #999;
+      font-size: 0.85rem;
+      border-top: 1px solid #eee;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .faq-hero {
+        height: 220px;
+      }
+
+      .faq-hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .faq-hero p {
+        font-size: 0.95rem;
+      }
+
+      .faq-section {
+        padding: 0 1rem;
+      }
+
+      .faq-section h2 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container-wide">
+      <div class="nav">
+        <a class="brand" href="../" aria-label="Home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>
+            <span class="brand-name">Sunlight Ledger</span>
+            <span class="brand-sub">Subsidies • Capacity • Equity</span>
+          </span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="../dashboard/">Dashboard</a>
+          <a href="../analytical-tool/">Analytical Tool</a>
+          <a href="../our-team/">Team</a>
+          <a href="../#method">Method</a>
+          <a href="../#sources">Sources</a>
+        </nav>
+
+        <div class="nav-cta">
+          <a class="btn" href="./">FAQ</a>
+          <a class="btn" href="../our-team/">About</a>
+          <a class="btn btn-primary" href="../dashboard/">Open dashboard →</a>
+
+          <button class="btn nav-menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav">
+            Menu
+          </button>
+        </div>
+
+        <div class="mobile-nav" id="mobileNav" hidden>
+          <a href="../dashboard/">Dashboard</a>
+          <a href="../analytical-tool/">Analytical Tool</a>
+          <a href="../our-team/">Team</a>
+          <a href="../#method">Method</a>
+          <a href="../#sources">Sources</a>
+          <a href="./">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="faq-hero">
+      <div class="faq-hero-content">
+        <h1>FAQ</h1>
+        <p>Questions and answers about our data, methodology, and how to use it</p>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <h2>Methodology: How to read and use this data</h2>
+      
+      <p class="faq-intro">
+        Governments invest public money via subsidies in solar energy to support the green transition and promote equity, 
+        but it is often hard to see where this funding goes and who benefits. This project makes solar subsidy and installation data 
+        transparent by bringing it into a single, interactive dashboard, helping users understand how photovoltaic (PV) investments are 
+        distributed over time and across communities, including low-income areas.
+      </p>
+
+      <div class="video-wrapper">
+        <iframe 
+          title="Sunlight Ledger overview video"
+          src="https://www.youtube.com/embed/D84wTgWdGTg" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <ol class="faq-list">
+        <li>
+          <h3><span class="question-number">1.</span> What is this project and why is it valuable?</h3>
+          <p>
+            Sunlight Ledger makes solar subsidy allocation and installation data transparent and auditable. 
+            Governments at all levels use subsidies to incentivize solar adoption, but the public often struggles to see where 
+            the money goes and who benefits. This project answers three core questions:
+          </p>
+          <ul class="metric-list">
+            <li><strong>Where are subsidy dollars and installations concentrated?</strong> ZIP-level mapping shows geographic distribution.</li>
+            <li><strong>How much capacity has been built and where?</strong> Total kW metrics reveal installed capacity hotspots.</li>
+            <li><strong>To what extent do low-income communities benefit?</strong> Equity metrics track funding and deployment in disadvantaged areas.</li>
+          </ul>
+          <p>
+            By making these data defensible and linked to official sources, we enable journalists to investigate patterns, 
+            help taxpayers track public spending, and support policymakers in designing equitable programs.
+          </p>
+        </li>
+
+        <li>
+          <h3><span class="question-number">2.</span> Who is this data for?</h3>
+          <p>
+            This project serves three main audiences:
+          </p>
+          <ul class="metric-list">
+            <li>
+              <strong>Journalists:</strong> Use the dashboard to find stories about subsidy concentration, 
+              identify anomalies (ZIP codes with unusually high costs per kilowatt), and verify claims with source data. 
+              Example: "90% of low-income solar funding went to five ZIP codes—here's the map."
+            </li>
+            <li>
+              <strong>Taxpayers and advocates:</strong> Track how public funds are allocated over time, 
+              compare equity across regions, and hold elected officials accountable. Example: "Our county received $X in solar subsidies; 
+              here's how much went to low-income residents."
+            </li>
+            <li>
+              <strong>City and county sustainability planners:</strong> Identify gaps in solar deployment, 
+              benchmark performance against neighboring areas, and design targeted programmes for underserved communities. 
+              Example: "North district lags in per-capita solar adoption—here's a proposal to address it."
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <h3><span class="question-number">3.</span> How is the data constructed and interpreted?</h3>
+          <p>
+            Data is aggregated from official sources and organized by ZIP code (typically year-by-year). 
+            Individual solar projects are rolled up into aggregate metrics at the ZIP level. Below are the metric categories and what they show:
+          </p>
+
+          <div class="metric-group">
+            <strong>Total Metrics</strong>
+            <ul class="metric-list">
+              <li><strong>Total subsidy dollars per ZIP code</strong> — Shows where public solar funding is geographically concentrated.</li>
+              <li><strong>Total installed solar capacity (kW)</strong> — Shows where solar generation capacity has been built across ZIP codes.</li>
+              <li><strong>Total number of solar installations</strong> — Shows overall participation levels across ZIP codes.</li>
+            </ul>
+          </div>
+
+          <div class="metric-group">
+            <strong>Low-Income Metrics</strong>
+            <ul class="metric-list">
+              <li><strong>Subsidy dollars allocated to low-income projects</strong> — Shows how much funding is directed to low-income communities within each ZIP code.</li>
+              <li><strong>Installed solar capacity in low-income projects (kW)</strong> — Shows how much solar capacity has been built in low-income projects by ZIP code.</li>
+              <li><strong>Number of low-income solar installations</strong> — Shows deployment activity in low-income areas across ZIP codes.</li>
+            </ul>
+          </div>
+
+          <div class="metric-group">
+            <strong>Equity Metrics (computed)</strong>
+            <ul class="metric-list">
+              <li><strong>Share of total installations in low-income areas</strong> — (low_projects / project_count) — Shows whether low-income communities are proportionally participating in solar adoption.</li>
+              <li><strong>Share of total installed capacity in low-income areas</strong> — (low_income_kW / total_kW) — Shows whether capacity deployment is equitably distributed across communities.</li>
+              <li><strong>Share of total subsidy dollars going to low-income projects</strong> — (low_income_subsidy / total_subsidy) — Shows how subsidy allocation aligns with equity goals.</li>
+            </ul>
+          </div>
+
+          <div class="metric-group">
+            <strong>Efficiency and Intensity Metrics (computed)</strong>
+            <ul class="metric-list">
+              <li><strong>Subsidy dollars per installation ($/install)</strong> — (total_subsidy / project_count) — Shows the average incentive amount per solar installation in a ZIP code.</li>
+              <li><strong>Subsidy dollars per kilowatt ($/kW)</strong> — (total_subsidy / total_kW) — Shows how much public funding is associated with each unit of installed capacity.</li>
+            </ul>
+          </div>
+
+          <p>
+            <em>Normalization across metrics lets users compare intensity and allocation patterns across ZIP codes and time periods. 
+            A ZIP with high subsidy per kW but low total capacity may signal cost overruns or targeting of expensive installations.</em>
+          </p>
+        </li>
+
+        <li>
+          <h3><span class="question-number">4.</span> What are the data sources and coverage?</h3>
+          <p>
+            We draw from authoritative, publicly available sources maintained by California state agencies:
+          </p>
+          <div class="faq-sources">
+            <p>
+              <strong>California Energy Commission (CEC)</strong><br />
+              <a href="https://cecgis-caenergy.opendata.arcgis.com/" target="_blank" rel="noopener">
+                California GIS Portal – Distributed Generation Database
+              </a><br />
+              Tracks individual distributed generation (solar) projects, installation dates, capacity, and location.
+            </p>
+            <p>
+              <strong>California Distributed Generation Statistics</strong><br />
+              <a href="https://www.californiadgstats.ca.gov/" target="_blank" rel="noopener">
+                California DG Stats
+              </a><br />
+              Aggregated state-level statistics on solar adoption, equipment, and incentive programmes.
+            </p>
+          </div>
+          <p>
+            Data is refreshed periodically as official sources update. See the dashboard footer or README for the most recent data publication date.
+          </p>
+        </li>
+
+        <li>
+          <h3><span class="question-number">5.</span> Which low-income programmes are covered and what do they do?</h3>
+          <p>
+            This project focuses on California's flagship low-income solar incentive programmes:
+          </p>
+          <div class="faq-sources">
+            <p>
+              <strong>SASH (Single-family Affordable Solar Homes)</strong><br />
+              <a href="https://gridalternatives.org/sash" target="_blank" rel="noopener">
+                Learn more at Grid Alternatives
+              </a><br />
+              Provides free or subsidized solar installations to low-income homeowners, reducing upfront costs and enabling long-term savings.
+            </p>
+            <p>
+              <strong>DAC-SASH (Disadvantaged Communities – SASH)</strong><br />
+              <a href="https://gridalternatives.org/dac-sash" target="_blank" rel="noopener">
+                Learn more at Grid Alternatives
+              </a><br />
+              Targets communities disproportionately burdened by environmental and economic disadvantage; covers installation and equipment costs.
+            </p>
+            <p>
+              <strong>MASH (Multifamily Affordable Solar Housing)</strong><br />
+              <a href="https://gridalternatives.org/mash" target="_blank" rel="noopener">
+                Learn more at Grid Alternatives
+              </a><br />
+              Supports solar on multifamily buildings serving low-income residents; reduces shared utility costs.
+            </p>
+          </div>
+          <p>
+            <strong>Common features of these programmes:</strong>
+          </p>
+          <ul class="metric-list">
+            <li>State-supported and administered (California Energy Commission, California Public Utilities Commission).</li>
+            <li>Installation-linked subsidies (cap up-front costs; ongoing operation and maintenance funded separately).</li>
+            <li>Linked to a physical location and ZIP code, enabling geographic analysis.</li>
+            <li>Designed to reduce energy burden and support long-term wealth building in underserved communities.</li>
+          </ul>
+        </li>
+      </ol>
+
+      <div class="faq-footer">
+        <p><strong>Last updated:</strong> January 2026</p>
+        <p>
+          Have a question not answered here? 
+          <a href="https://github.com/thewelltemperedclavier/solar-pv/issues" target="_blank" rel="noopener">
+            Open an issue on GitHub
+          </a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (menuBtn) {
+      menuBtn.addEventListener('click', () => {
+        const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        menuBtn.setAttribute('aria-expanded', !isExpanded);
+        mobileNav.hidden = isExpanded;
+      });
+    }
+  </script>
+</body>
+</html>

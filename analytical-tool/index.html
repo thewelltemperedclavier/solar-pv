@@ -1,0 +1,1456 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sunlight Ledger — Analytical Tool</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .analytical-container {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .sidebar-panel {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
+
+    .sidebar-panel-header {
+      padding: 1rem;
+      background: #f0f0f0;
+      border-bottom: 1px solid #e0e0e0;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .sidebar-panel-header:hover {
+      background: #e8e8e8;
+    }
+
+    .sidebar-panel-header.collapsed {
+      border-radius: 8px;
+    }
+
+    .sidebar-panel-content {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .sidebar-panel-content.hidden {
+      display: none;
+    }
+
+    .years-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .year-item {
+      padding: 0.5rem;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .year-item:hover {
+      background: #e8f4f8;
+      border-color: #0066cc;
+    }
+
+    .year-item.selected {
+      background: #0066cc;
+      color: white;
+      border-color: #0066cc;
+    }
+
+    .warning-message {
+      padding: 0.75rem;
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      color: #856404;
+    }
+
+    .metrics-search {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.875rem;
+    }
+
+    .metrics-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .metrics-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .metrics-group-title {
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: #666;
+      margin-top: 0.5rem;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .metrics-group:first-child .metrics-group-title {
+      margin-top: 0;
+    }
+
+    .metric-item {
+      padding: 0.625rem;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+    }
+
+    .metric-item:hover {
+      background: #e8f4f8;
+      border-color: #0066cc;
+    }
+
+    .metric-item.selected {
+      background: #0066cc;
+      color: white;
+      border-color: #0066cc;
+    }
+
+    .metric-description {
+      padding: 1rem;
+      background: #f0f9ff;
+      border-left: 4px solid #0066cc;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .chart-container {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1.5rem;
+      background: white;
+    }
+
+    .chart-title {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .chart-subtitle {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+      font-weight: 400;
+    }
+
+    .chart-canvas-wrapper {
+      position: relative;
+      height: 300px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
+    }
+
+    .error {
+      padding: 1rem;
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      border-radius: 4px;
+      color: #721c24;
+      margin: 1rem 0;
+    }
+
+    .download-section {
+      border-top: 2px solid #e0e0e0;
+      padding-top: 2rem;
+      margin-top: 2rem;
+    }
+
+    .download-section h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .download-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+      background: #f0f0f0;
+      color: #333;
+      border: 1px solid #ddd;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .btn-secondary:hover {
+      background: #e0e0e0;
+      border-color: #999;
+    }
+
+    .btn-secondary:active {
+      transform: scale(0.98);
+    }
+
+    .chart-description {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f5f5f5;
+      border-left: 3px solid #0066cc;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    @media (max-width: 1200px) {
+      .analytical-container {
+        grid-template-columns: 1fr;
+      }
+
+      .charts-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        flex-direction: row;
+        gap: 1rem;
+      }
+
+      .sidebar-panel {
+        flex: 1;
+        min-width: 200px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .analytical-container {
+        padding: 1rem 0;
+      }
+
+      .sidebar {
+        flex-direction: column;
+      }
+
+      .chart-title {
+        font-size: 0.875rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container-wide">
+      <div class="nav">
+        <a class="brand" href="../" aria-label="Home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>
+            <span class="brand-name">Sunlight Ledger</span>
+            <span class="brand-sub">Subsidies • Capacity • Equity</span>
+          </span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="../dashboard/">Dashboard</a>
+          <a href="./">Analytical Tool</a>
+          <a href="../our-team/">Team</a>
+          <a href="../#method">Method</a>
+          <a href="../#sources">Sources</a>
+        </nav>
+
+        <div class="nav-cta">
+          <a class="btn" href="../faq/">FAQ</a>
+          <a class="btn" href="../our-team/">About</a>
+          <a class="btn btn-primary" href="../dashboard/">Open dashboard →</a>
+          <button class="btn nav-menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav">
+            Menu
+          </button>
+        </div>
+
+        <div class="mobile-nav" id="mobileNav" hidden>
+          <a href="../dashboard/">Dashboard</a>
+          <a href="./">Analytical Tool</a>
+          <a href="../our-team/">Team</a>
+          <a href="../#method">Method</a>
+          <a href="../#sources">Sources</a>
+          <a href="../faq/">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container-wide">
+        <h1>Analytical Tool</h1>
+        <p>Explore solar subsidy data by ZIP code with interactive charts and filtering options.</p>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="container-wide">
+        <div class="analytical-container">
+          <aside class="sidebar">
+            <!-- Years Panel -->
+            <div class="sidebar-panel">
+              <div class="sidebar-panel-header" id="yearsToggle">
+                <span>Years</span>
+                <span id="yearsToggleIcon">▼</span>
+              </div>
+              <div class="sidebar-panel-content" id="yearsContent">
+                <div id="yearsList" class="years-list"></div>
+                <div id="yearWarning" class="warning-message" style="display: none;">
+                  Year filtering not available until a 'year' column is added.
+                </div>
+              </div>
+            </div>
+
+            <!-- Metrics Panel -->
+            <div class="sidebar-panel">
+              <div class="sidebar-panel-header" id="metricsToggle">
+                <span>Metrics</span>
+                <span id="metricsToggleIcon">▼</span>
+              </div>
+              <div class="sidebar-panel-content" id="metricsContent">
+                <input 
+                  type="text" 
+                  id="metricsSearch" 
+                  class="metrics-search" 
+                  placeholder="Search metrics..."
+                  aria-label="Search metrics"
+                />
+                <div id="metricsList" class="metrics-list"></div>
+              </div>
+            </div>
+          </aside>
+
+          <main class="main-content">
+            <div id="metricDescriptionArea"></div>
+
+            <div class="charts-grid">
+              <div class="chart-container">
+                <div class="chart-title">Top 12 ZIP Codes by Selected Metric</div>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="topZipsChart"></canvas>
+                </div>
+                <div class="chart-description" id="topZipsDescription">
+                  This chart shows which ZIP codes lead in the selected metric. The ranking helps identify geographic hotspots where solar adoption, subsidies, or participation is most concentrated.
+                </div>
+              </div>
+
+              <div class="chart-container">
+                <div id="contextChartContainer">
+                  <div class="chart-title">Relationship: Capacity vs. Selected Metric</div>
+                  <div class="chart-canvas-wrapper">
+                    <canvas id="scatterChart"></canvas>
+                  </div>
+                  <div class="chart-description" id="scatterDescription">
+                    This scatter plot reveals how the selected metric correlates with installed capacity. Points clustered at the origin indicate many small projects, while outliers show exceptional cases requiring closer examination.
+                  </div>
+                </div>
+                <div id="pieChartContainer" style="display: none;">
+                  <div class="chart-title">Equity Share Breakdown</div>
+                  <div class="chart-canvas-wrapper">
+                    <canvas id="pieChart"></canvas>
+                  </div>
+                  <div class="chart-description" id="pieDescription">
+                    This chart displays how the selected equity metric is distributed between low-income and other areas. Proportionally larger segments indicate more equitable distribution of resources across different community types.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-container">
+              <div class="chart-title">Policy Analysis: Subsidy Efficiency Quadrants</div>
+              <div class="chart-subtitle">Top 5 outliers labeled | Quadrants: High/Low Capacity × High/Low Subsidy</div>
+              <div class="chart-canvas-wrapper" style="height: 400px;">
+                <canvas id="quadrantChart"></canvas>
+              </div>
+              <div class="chart-description" id="quadrantDescription">
+                The four quadrants reveal subsidy allocation patterns. The green "Efficient" zone shows high capacity for low cost; the orange zone flags potentially wasteful spending. Top 5 outliers (yellow) highlight ZIP codes with unusually high subsidy per kilowatt that warrant policy review.
+              </div>
+            </div>
+
+            <div class="download-section">
+              <h3>Download Results</h3>
+              <div class="download-buttons">
+                <button id="downloadDataBtn" class="btn btn-secondary">
+                  Download Filtered Data (CSV)
+                </button>
+                <button id="downloadChartsBtn" class="btn btn-secondary">
+                  Download Charts (Print)
+                </button>
+                <button id="downloadPdfBtn" class="btn btn-secondary">
+                  Download Charts (PDF)
+                </button>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    // Configuration
+    const BASE = location.pathname.includes("/solar-pv/") ? "/solar-pv" : "";
+    const CSV_URL = `${BASE}/data/california_solar_subsidy_by_zip.csv`;
+
+    // Metrics configuration
+    const METRICS_CONFIG = {
+      total_metrics: [
+        {
+          key: 'total_subsidy',
+          label: 'Total subsidy dollars per ZIP code',
+          desc: 'Shows where public solar funding is geographically concentrated across ZIP codes.'
+        },
+        {
+          key: 'total_kW',
+          label: 'Total installed solar capacity (kW)',
+          desc: 'Shows where solar generation capacity has been built across ZIP codes.'
+        },
+        {
+          key: 'project_count',
+          label: 'Total number of solar installations',
+          desc: 'Shows overall participation levels across ZIP codes.'
+        }
+      ],
+      low_income_metrics: [
+        {
+          key: 'low_income_subsidy',
+          label: 'Subsidy dollars allocated to low-income projects',
+          desc: 'Shows how much funding is directed to low-income communities within each ZIP code.'
+        },
+        {
+          key: 'low_income_kW',
+          label: 'Installed solar capacity in low-income projects (kW)',
+          desc: 'Shows how much solar capacity has been built in low-income projects by ZIP code.'
+        },
+        {
+          key: 'low_projects',
+          label: 'Number of low-income solar installations',
+          desc: 'Shows deployment activity in low-income areas across ZIP codes.'
+        }
+      ],
+      equity_metrics: [
+        {
+          key: 'share_li_installs',
+          label: 'Share of total installations in low-income areas',
+          desc: 'Shows whether low-income communities are proportionally participating in solar adoption.'
+        },
+        {
+          key: 'share_li_capacity',
+          label: 'Share of total installed capacity (kW) in low-income areas',
+          desc: 'Shows whether capacity deployment is equitably distributed across communities.'
+        },
+        {
+          key: 'share_li_subsidy',
+          label: 'Share of total subsidy dollars going to low-income projects',
+          desc: 'Shows how subsidy allocation aligns with equity goals.'
+        }
+      ],
+      efficiency_metrics: [
+        {
+          key: 'subsidy_per_install',
+          label: 'Subsidy dollars per installation ($/install)',
+          desc: 'Shows the average incentive amount per solar installation in a ZIP code.'
+        },
+        {
+          key: 'subsidy_per_kw',
+          label: 'Subsidy dollars per kilowatt ($/kW)',
+          desc: 'Shows how much public funding is associated with each unit of installed capacity in a ZIP code.'
+        }
+      ]
+    };
+
+    // State
+    let rawData = [];
+    let filteredData = [];
+    let selectedMetric = 'total_subsidy';
+    let selectedYear = null;
+    let hasYearColumn = false;
+    let topZipsChart = null;
+    let scatterChart = null;
+    let pieChart = null;
+    let quadrantChart = null;
+
+    // Toggle sidebar panels
+    document.getElementById('yearsToggle').addEventListener('click', () => {
+      togglePanel('years');
+    });
+
+    document.getElementById('metricsToggle').addEventListener('click', () => {
+      togglePanel('metrics');
+    });
+
+    function togglePanel(panelName) {
+      const content = document.getElementById(`${panelName}Content`);
+      const icon = document.getElementById(`${panelName}ToggleIcon`);
+      const isHidden = content.classList.contains('hidden');
+
+      content.classList.toggle('hidden');
+      icon.textContent = isHidden ? '▼' : '▶';
+    }
+
+    // Load CSV data
+    async function loadData() {
+      try {
+        const response = await fetch(CSV_URL);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
+        const text = await response.text();
+        Papa.parse(text, {
+          header: true,
+          skipEmptyLines: true,
+          dynamicTyping: false,
+          complete: (results) => {
+            rawData = results.data.filter(row => row.ZIP);
+            processData();
+            initializeUI();
+            updateCharts();
+          },
+          error: (error) => {
+            console.error('CSV parsing error:', error);
+            showError('Error parsing CSV data');
+          }
+        });
+      } catch (error) {
+        console.error('Data load error:', error);
+        showError('Error loading data: ' + error.message);
+      }
+    }
+
+    // Process data: add computed metrics
+    function processData() {
+      rawData.forEach(row => {
+        const total_subsidy = parseFloat(row.total_subsidy) || 0;
+        const total_kW = parseFloat(row.total_kW) || 0;
+        const project_count = parseFloat(row.project_count) || 0;
+        const low_income_subsidy = parseFloat(row.low_income_subsidy) || 0;
+        const low_income_kW = parseFloat(row.low_income_kW) || 0;
+        const low_projects = parseFloat(row.low_projects) || 0;
+
+        // Computed equity metrics
+        row.share_li_installs = project_count > 0 ? low_projects / project_count : 0;
+        row.share_li_capacity = total_kW > 0 ? low_income_kW / total_kW : 0;
+        row.share_li_subsidy = total_subsidy > 0 ? low_income_subsidy / total_subsidy : 0;
+
+        // Computed efficiency metrics
+        row.subsidy_per_install = project_count > 0 ? total_subsidy / project_count : 0;
+        row.subsidy_per_kw = total_kW > 0 ? total_subsidy / total_kW : 0;
+      });
+
+      // Check for year column
+      hasYearColumn = rawData.length > 0 && 'year' in rawData[0];
+      filteredData = [...rawData];
+    }
+
+    // Initialize UI elements
+    function initializeUI() {
+      initializeYears();
+      initializeMetrics();
+      updateMetricDescription();
+    }
+
+    function initializeYears() {
+      const yearsList = document.getElementById('yearsList');
+      const yearWarning = document.getElementById('yearWarning');
+
+      if (!hasYearColumn) {
+        yearWarning.style.display = 'block';
+        yearsList.innerHTML = '';
+        return;
+      }
+
+      // Get unique years and sort descending
+      const years = [...new Set(rawData.map(r => r.year))].sort().reverse();
+      const recentYears = years.slice(0, 2);
+
+      yearsList.innerHTML = '';
+      recentYears.forEach(year => {
+        const yearEl = document.createElement('div');
+        yearEl.className = 'year-item selected';
+        yearEl.textContent = year;
+        yearEl.addEventListener('click', () => selectYear(year));
+        yearsList.appendChild(yearEl);
+      });
+
+      if (recentYears.length > 0) {
+        selectedYear = recentYears[0];
+      }
+    }
+
+    function selectYear(year) {
+      selectedYear = year;
+      document.querySelectorAll('.year-item').forEach(el => {
+        el.classList.toggle('selected', el.textContent === year);
+      });
+      filterData();
+      updateCharts();
+    }
+
+    function initializeMetrics() {
+      const metricsList = document.getElementById('metricsList');
+      metricsList.innerHTML = '';
+
+      Object.entries(METRICS_CONFIG).forEach(([groupKey, metrics]) => {
+        const groupEl = document.createElement('div');
+        groupEl.className = 'metrics-group';
+
+        const groupTitle = document.createElement('div');
+        groupTitle.className = 'metrics-group-title';
+        groupTitle.textContent = groupKey.replace(/_/g, ' ');
+        groupEl.appendChild(groupTitle);
+
+        metrics.forEach(metric => {
+          const metricEl = document.createElement('div');
+          metricEl.className = 'metric-item' + (metric.key === selectedMetric ? ' selected' : '');
+          metricEl.textContent = metric.label;
+          metricEl.dataset.metricKey = metric.key;
+          metricEl.addEventListener('click', () => selectMetric(metric.key));
+          groupEl.appendChild(metricEl);
+        });
+
+        metricsList.appendChild(groupEl);
+      });
+
+      // Setup search
+      document.getElementById('metricsSearch').addEventListener('input', (e) => {
+        filterMetricsList(e.target.value);
+      });
+    }
+
+    function filterMetricsList(searchTerm) {
+      const items = document.querySelectorAll('.metric-item');
+      items.forEach(item => {
+        const matches = item.textContent.toLowerCase().includes(searchTerm.toLowerCase());
+        item.style.display = matches ? '' : 'none';
+      });
+    }
+
+    function selectMetric(metricKey) {
+      selectedMetric = metricKey;
+      document.querySelectorAll('.metric-item').forEach(el => {
+        el.classList.toggle('selected', el.dataset.metricKey === metricKey);
+      });
+      updateMetricDescription();
+      updateCharts();
+    }
+
+    function updateMetricDescription() {
+      const descArea = document.getElementById('metricDescriptionArea');
+      let metricConfig = null;
+
+      for (const groupMetrics of Object.values(METRICS_CONFIG)) {
+        const found = groupMetrics.find(m => m.key === selectedMetric);
+        if (found) {
+          metricConfig = found;
+          break;
+        }
+      }
+
+      if (metricConfig) {
+        descArea.innerHTML = `
+          <div class="metric-description">
+            <strong>${metricConfig.label}</strong><br />
+            ${metricConfig.desc}
+          </div>
+        `;
+      }
+    }
+
+    function filterData() {
+      if (!hasYearColumn || !selectedYear) {
+        filteredData = [...rawData];
+      } else {
+        filteredData = rawData.filter(row => row.year == selectedYear);
+      }
+    }
+
+    // Chart update functions
+    function updateCharts() {
+      updateTopZipsChart();
+      
+      // Check if selected metric is a share metric
+      const shareMetrics = ['share_li_installs', 'share_li_capacity', 'share_li_subsidy'];
+      if (shareMetrics.includes(selectedMetric)) {
+        updatePieChart();
+      } else {
+        updateScatterChart();
+      }
+
+      updateQuadrantChart();
+    }
+
+    function updateTopZipsChart() {
+      const sortedData = [...filteredData].sort((a, b) => {
+        return parseFloat(b[selectedMetric]) - parseFloat(a[selectedMetric]);
+      }).slice(0, 12);
+
+      const zips = sortedData.map(d => d.ZIP);
+      const metricValues = sortedData.map(d => parseFloat(d[selectedMetric]) || 0);
+
+      // Check if we should create stacked bars
+      const isStackable = ['total_subsidy', 'total_kW', 'project_count'].includes(selectedMetric);
+      
+      let datasets = [];
+      if (isStackable) {
+        const liValues = sortedData.map(d => {
+          if (selectedMetric === 'total_subsidy') return parseFloat(d.low_income_subsidy) || 0;
+          if (selectedMetric === 'total_kW') return parseFloat(d.low_income_kW) || 0;
+          if (selectedMetric === 'project_count') return parseFloat(d.low_projects) || 0;
+          return 0;
+        });
+        const otherValues = metricValues.map((v, i) => v - liValues[i]);
+
+        datasets = [
+          {
+            label: 'Low-income',
+            data: liValues,
+            backgroundColor: '#0066cc',
+            borderColor: '#0052a3',
+            borderWidth: 1
+          },
+          {
+            label: 'Other',
+            data: otherValues,
+            backgroundColor: '#e8f4f8',
+            borderColor: '#b3d9e8',
+            borderWidth: 1
+          }
+        ];
+      } else {
+        datasets = [
+          {
+            label: selectedMetric,
+            data: metricValues,
+            backgroundColor: '#0066cc',
+            borderColor: '#0052a3',
+            borderWidth: 1
+          }
+        ];
+      }
+
+      const ctx = document.getElementById('topZipsChart').getContext('2d');
+      
+      if (topZipsChart) topZipsChart.destroy();
+      
+      topZipsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: zips,
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          indexAxis: 'y',
+          plugins: {
+            legend: {
+              display: isStackable
+            }
+          },
+          scales: {
+            x: {
+              stacked: isStackable
+            }
+          }
+        }
+      });
+    }
+
+    function updateScatterChart() {
+      // Hide pie chart, show scatter
+      document.getElementById('contextChartContainer').style.display = 'block';
+      document.getElementById('pieChartContainer').style.display = 'none';
+
+      const efficiencyMetrics = ['subsidy_per_install', 'subsidy_per_kw', 'share_li_capacity', 'share_li_installs', 'share_li_subsidy'];
+      const isEfficiency = efficiencyMetrics.includes(selectedMetric);
+
+      const xLabel = 'Total kW';
+      const yLabel = selectedMetric;
+
+      const dataPoints = filteredData
+        .filter(d => parseFloat(d.total_kW) > 0 && parseFloat(d[selectedMetric]) !== undefined)
+        .map(d => ({
+          x: parseFloat(d.total_kW),
+          y: parseFloat(d[selectedMetric])
+        }))
+        .slice(0, 200);
+
+      const ctx = document.getElementById('scatterChart').getContext('2d');
+      
+      if (scatterChart) scatterChart.destroy();
+      
+      scatterChart = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [{
+            label: yLabel,
+            data: dataPoints,
+            backgroundColor: '#0066cc',
+            borderColor: '#0052a3',
+            borderWidth: 1,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true
+            }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: xLabel
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: yLabel
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function updatePieChart() {
+      // Hide scatter, show pie
+      document.getElementById('contextChartContainer').style.display = 'none';
+      document.getElementById('pieChartContainer').style.display = 'block';
+
+      // Aggregate data across all filtered records
+      let totalLiValue = 0;
+      let totalOtherValue = 0;
+
+      filteredData.forEach(row => {
+        if (selectedMetric === 'share_li_subsidy') {
+          const liSubsidy = parseFloat(row.low_income_subsidy) || 0;
+          const otherSubsidy = (parseFloat(row.total_subsidy) || 0) - liSubsidy;
+          totalLiValue += liSubsidy;
+          totalOtherValue += otherSubsidy;
+        } else if (selectedMetric === 'share_li_capacity') {
+          const liKw = parseFloat(row.low_income_kW) || 0;
+          const otherKw = (parseFloat(row.total_kW) || 0) - liKw;
+          totalLiValue += liKw;
+          totalOtherValue += otherKw;
+        } else if (selectedMetric === 'share_li_installs') {
+          const liProjects = parseFloat(row.low_projects) || 0;
+          const otherProjects = (parseFloat(row.project_count) || 0) - liProjects;
+          totalLiValue += liProjects;
+          totalOtherValue += otherProjects;
+        }
+      });
+
+      // Calculate percentages
+      const total = totalLiValue + totalOtherValue;
+      const liPercent = total > 0 ? ((totalLiValue / total) * 100).toFixed(1) : 0;
+      const otherPercent = total > 0 ? ((totalOtherValue / total) * 100).toFixed(1) : 0;
+
+      const ctx = document.getElementById('pieChart').getContext('2d');
+      
+      if (pieChart) pieChart.destroy();
+      
+      pieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: [
+            `Low-Income (${liPercent}%)`,
+            `Other (${otherPercent}%)`
+          ],
+          datasets: [{
+            data: [totalLiValue, totalOtherValue],
+            backgroundColor: ['#0066cc', '#e8f4f8'],
+            borderColor: ['#0052a3', '#b3d9e8'],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true,
+              position: 'bottom'
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const value = context.parsed || 0;
+                  const percent = ((value / total) * 100).toFixed(1);
+                  return context.label + ': ' + value.toFixed(0) + ' (' + percent + '%)';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function updateQuadrantChart() {
+      // Prepare data for quadrant chart
+      const validData = filteredData
+        .filter(d => {
+          const kw = parseFloat(d.total_kW) || 0;
+          const subsidy = parseFloat(d.total_subsidy) || 0;
+          return kw > 0 && subsidy > 0;
+        })
+        .map(d => ({
+          x: parseFloat(d.total_kW),
+          y: parseFloat(d.total_subsidy),
+          zip: d.ZIP,
+          subsidy_per_kw: parseFloat(d.subsidy_per_kw) || 0
+        }));
+
+      if (validData.length === 0) return;
+
+      // Calculate medians
+      const xValues = validData.map(d => d.x).sort((a, b) => a - b);
+      const yValues = validData.map(d => d.y).sort((a, b) => a - b);
+      const medianX = xValues[Math.floor(xValues.length / 2)];
+      const medianY = yValues[Math.floor(yValues.length / 2)];
+
+      // Find top 5 outliers by subsidy_per_kw
+      const topOutliers = validData
+        .sort((a, b) => b.subsidy_per_kw - a.subsidy_per_kw)
+        .slice(0, 5)
+        .map(d => ({ ...d, isOutlier: true }));
+
+      const outlierZips = new Set(topOutliers.map(d => d.zip));
+
+      // Separate data into quadrants and outliers
+      const quadrant1 = validData.filter(d => d.x >= medianX && d.y >= medianY && !outlierZips.has(d.zip)); // High kW, High subsidy
+      const quadrant2 = validData.filter(d => d.x < medianX && d.y >= medianY && !outlierZips.has(d.zip));  // Low kW, High subsidy
+      const quadrant3 = validData.filter(d => d.x < medianX && d.y < medianY && !outlierZips.has(d.zip));   // Low kW, Low subsidy
+      const quadrant4 = validData.filter(d => d.x >= medianX && d.y < medianY && !outlierZips.has(d.zip));  // High kW, Low subsidy
+
+      const ctx = document.getElementById('quadrantChart').getContext('2d');
+
+      if (quadrantChart) quadrantChart.destroy();
+
+      quadrantChart = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [
+            {
+              label: 'High kW / High Subsidy',
+              data: quadrant1,
+              backgroundColor: '#ff9999',
+              borderColor: '#cc0000',
+              borderWidth: 1,
+              pointRadius: 4
+            },
+            {
+              label: 'Low kW / High Subsidy (Expensive)',
+              data: quadrant2,
+              backgroundColor: '#ffcc99',
+              borderColor: '#ff6600',
+              borderWidth: 1,
+              pointRadius: 4
+            },
+            {
+              label: 'Low kW / Low Subsidy',
+              data: quadrant3,
+              backgroundColor: '#99ccff',
+              borderColor: '#0066cc',
+              borderWidth: 1,
+              pointRadius: 4
+            },
+            {
+              label: 'High kW / Low Subsidy (Efficient)',
+              data: quadrant4,
+              backgroundColor: '#99ff99',
+              borderColor: '#00aa00',
+              borderWidth: 1,
+              pointRadius: 4
+            },
+            {
+              label: 'Top 5 Outliers (Subsidy/kW)',
+              data: topOutliers,
+              backgroundColor: '#ffff00',
+              borderColor: '#ff0000',
+              borderWidth: 2,
+              pointRadius: 7,
+              showLine: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top'
+            },
+            annotation: {
+              drawTime: 'beforeDraw'
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const data = context.raw;
+                  return `ZIP: ${data.zip}, kW: ${data.x.toFixed(0)}, Subsidy: $${data.y.toFixed(0)}, $/kW: $${data.subsidy_per_kw.toFixed(2)}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              position: 'bottom',
+              title: {
+                display: true,
+                text: 'Total kW (Capacity)'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Total Subsidy ($)'
+              }
+            }
+          },
+          plugins: {
+            filler: {
+              propagate: true
+            }
+          }
+        },
+        plugins: [{
+          afterDatasetsDraw(chart) {
+            const ctx = chart.ctx;
+            const xScale = chart.scales.x;
+            const yScale = chart.scales.y;
+            const medianXPixel = xScale.getPixelForValue(medianX);
+            const medianYPixel = yScale.getPixelForValue(medianY);
+
+            // Draw median lines
+            ctx.save();
+            ctx.strokeStyle = '#999';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+
+            // Vertical line (median X)
+            ctx.beginPath();
+            ctx.moveTo(medianXPixel, yScale.top);
+            ctx.lineTo(medianXPixel, yScale.bottom);
+            ctx.stroke();
+
+            // Horizontal line (median Y)
+            ctx.beginPath();
+            ctx.moveTo(xScale.left, medianYPixel);
+            ctx.lineTo(xScale.right, medianYPixel);
+            ctx.stroke();
+
+            ctx.restore();
+
+            // Label top 5 outliers with ZIP codes
+            topOutliers.forEach(point => {
+              const x = xScale.getPixelForValue(point.x);
+              const y = yScale.getPixelForValue(point.y);
+
+              ctx.save();
+              ctx.fillStyle = '#000';
+              ctx.font = 'bold 10px Arial';
+              ctx.textAlign = 'center';
+              ctx.fillText(point.zip, x, y - 12);
+              ctx.restore();
+            });
+
+            // Add quadrant labels
+            ctx.save();
+            ctx.fillStyle = '#ccc';
+            ctx.font = 'italic 11px Arial';
+            ctx.globalAlpha = 0.5;
+
+            const q1X = xScale.getPixelForValue(xScale.max);
+            const q1Y = yScale.getPixelForValue(yScale.max);
+            ctx.textAlign = 'right';
+            ctx.fillText('High / High', q1X - 10, q1Y + 15);
+
+            const q2X = xScale.getPixelForValue(xScale.min);
+            const q2Y = yScale.getPixelForValue(yScale.max);
+            ctx.textAlign = 'left';
+            ctx.fillText('Low kW / High $', q2X + 10, q2Y + 15);
+
+            const q3X = xScale.getPixelForValue(xScale.min);
+            const q3Y = yScale.getPixelForValue(yScale.min);
+            ctx.textAlign = 'left';
+            ctx.fillText('Low / Low', q3X + 10, q3Y - 5);
+
+            const q4X = xScale.getPixelForValue(xScale.max);
+            const q4Y = yScale.getPixelForValue(yScale.min);
+            ctx.textAlign = 'right';
+            ctx.fillText('Efficient', q4X - 10, q4Y - 5);
+
+            ctx.restore();
+          }
+        }]
+      });
+    }
+
+    function showError(message) {
+      const main = document.querySelector('.main-content') || document.querySelector('main');
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'error';
+      errorDiv.textContent = message;
+      main.insertBefore(errorDiv, main.firstChild);
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', loadData);
+
+    // Download functionality
+    document.getElementById('downloadDataBtn').addEventListener('click', downloadFilteredData);
+    document.getElementById('downloadChartsBtn').addEventListener('click', downloadChartsPrint);
+    document.getElementById('downloadPdfBtn').addEventListener('click', downloadChartsAsPdf);
+
+    function downloadFilteredData() {
+      if (filteredData.length === 0) {
+        alert('No data to download. Please load the data first.');
+        return;
+      }
+
+      // Get all columns from the data
+      const allColumns = [
+        'ZIP', 'total_subsidy', 'total_kW', 'project_count', 
+        'low_income_subsidy', 'low_income_kW', 'low_projects', 
+        'equity_share', 'share_li_installs', 'share_li_capacity', 
+        'share_li_subsidy', 'subsidy_per_install', 'subsidy_per_kw'
+      ];
+
+      // Create CSV header
+      const header = allColumns.join(',');
+
+      // Create CSV rows
+      const rows = filteredData.map(row => {
+        return allColumns.map(col => {
+          const value = row[col];
+          // Handle string values with quotes if they contain commas
+          if (typeof value === 'string' && value.includes(',')) {
+            return `"${value}"`;
+          }
+          return value !== undefined ? value : '';
+        }).join(',');
+      });
+
+      // Combine header and rows
+      const csv = [header, ...rows].join('\n');
+
+      // Create blob and download
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      
+      link.setAttribute('href', url);
+      link.setAttribute('download', `solar-subsidy-data-${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function downloadChartsPrint() {
+      if (!topZipsChart || !scatterChart) {
+        alert('Charts not ready. Please ensure data is loaded.');
+        return;
+      }
+
+      // Get chart images
+      const topZipsImage = topZipsChart.toBase64Image();
+      const scatterImage = scatterChart.toBase64Image();
+
+      // Create HTML content for PDF-like display
+      const html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Solar Subsidy Charts</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 40px; background: white; }
+            .header {
+              position: relative;
+              margin-bottom: 40px;
+              border-bottom: 2px solid #0066cc;
+              padding-bottom: 15px;
+            }
+            .header h1 { margin: 0 0 5px 0; color: #333; }
+            .header p { margin: 0; color: #666; font-size: 13px; }
+            .source {
+              position: absolute;
+              top: 0;
+              right: 0;
+              text-align: right;
+              font-size: 11px;
+              color: #0066cc;
+            }
+            .source a { color: #0066cc; text-decoration: none; }
+            .source a:hover { text-decoration: underline; }
+            .chart-section {
+              margin-bottom: 50px;
+              page-break-inside: avoid;
+            }
+            .chart-section h2 {
+              margin: 0 0 10px 0;
+              font-size: 14px;
+              color: #333;
+              border-left: 3px solid #0066cc;
+              padding-left: 10px;
+            }
+            .chart-wrapper {
+              display: flex;
+              justify-content: center;
+              margin: 20px 0;
+            }
+            img {
+              max-width: 600px;
+              height: auto;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .metadata {
+              margin-top: 10px;
+              font-size: 11px;
+              color: #999;
+              text-align: center;
+            }
+            @media print {
+              body { margin: 0; }
+              .chart-section { page-break-inside: avoid; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>Solar Subsidy Analysis Report</h1>
+            <p>Data visualization of California solar subsidies by ZIP code</p>
+            <div class="source">
+              Source: <a href="https://thewelltemperedclavier.github.io/solar-pv/">Sunlight Ledger</a>
+            </div>
+          </div>
+
+          <div class="chart-section">
+            <h2>Top 12 ZIP Codes by Selected Metric</h2>
+            <div class="chart-wrapper">
+              <img src="${topZipsImage}" alt="Top ZIPs Chart" />
+            </div>
+            <div class="metadata">Generated on ${new Date().toLocaleString()}</div>
+          </div>
+
+          <div class="chart-section">
+            <h2>Relationship: Capacity vs. Selected Metric</h2>
+            <div class="chart-wrapper">
+              <img src="${scatterImage}" alt="Scatter Chart" />
+            </div>
+            <div class="metadata">Metric: ${selectedMetric}</div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      // Open in new window for printing/saving as PDF
+      const newWindow = window.open();
+      newWindow.document.write(html);
+      newWindow.document.close();
+      
+      // Optional: auto-open print dialog
+      setTimeout(() => {
+        newWindow.print();
+      }, 250);
+    }
+
+    function downloadChartsAsPdf() {
+      if (!topZipsChart) {
+        alert('Charts not ready. Please ensure data is loaded.');
+        return;
+      }
+
+      const { jsPDF } = window.jspdf;
+      
+      // Create PDF document (A4 size)
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 15;
+      const contentWidth = 120; // Reduced width for neat appearance
+      const contentX = (pageWidth - contentWidth) / 2; // Center the content
+
+      let yPosition = margin;
+
+      // Add header with title and source
+      pdf.setFontSize(18);
+      pdf.setTextColor(0, 102, 204);
+      pdf.text('Solar Subsidy Analysis Report', contentX, yPosition);
+      yPosition += 8;
+
+      pdf.setFontSize(11);
+      pdf.setTextColor(100);
+      pdf.text('Data visualization of California solar subsidies by ZIP code', contentX, yPosition);
+      yPosition += 15;
+
+      // Add source attribution in top right
+      pdf.setFontSize(9);
+      pdf.setTextColor(0, 102, 204);
+      pdf.text('Source: Sunlight Ledger', pageWidth - margin - 5, margin + 2, { align: 'right' });
+      
+      // Add horizontal line under header
+      pdf.setDrawColor(0, 102, 204);
+      pdf.setLineWidth(0.5);
+      pdf.line(margin, yPosition - 5, pageWidth - margin, yPosition - 5);
+
+      yPosition += 5;
+
+      // Reset text color
+      pdf.setTextColor(0);
+
+      // Add first chart (Top ZIPs)
+      pdf.setFontSize(12);
+      pdf.setTextColor(51, 51, 51);
+      pdf.text('Top 12 ZIP Codes by Selected Metric', contentX, yPosition);
+      yPosition += 8;
+
+      const topZipsImage = topZipsChart.toBase64Image();
+      const chartHeight = 75;
+      pdf.addImage(topZipsImage, 'PNG', contentX, yPosition, contentWidth, chartHeight);
+      yPosition += chartHeight + 12;
+
+      // Add metadata
+      pdf.setFontSize(8);
+      pdf.setTextColor(150);
+      pdf.text(`Generated on ${new Date().toLocaleString()}`, contentX, yPosition);
+      yPosition += 8;
+
+      // Check if we need a new page
+      if (yPosition > pageHeight - margin - 100) {
+        pdf.addPage();
+        yPosition = margin;
+      }
+
+      // Add second chart (Scatter or Pie)
+      pdf.setFontSize(12);
+      pdf.setTextColor(51, 51, 51);
+      const shareMetrics = ['share_li_installs', 'share_li_capacity', 'share_li_subsidy'];
+      const secondChartTitle = shareMetrics.includes(selectedMetric) ? 
+        'Equity Share Breakdown' : 
+        'Relationship: Capacity vs. Selected Metric';
+
+      pdf.text(secondChartTitle, contentX, yPosition);
+      yPosition += 8;
+
+      const secondChart = shareMetrics.includes(selectedMetric) ? pieChart : scatterChart;
+      if (secondChart) {
+        const secondChartImage = secondChart.toBase64Image();
+        pdf.addImage(secondChartImage, 'PNG', contentX, yPosition, contentWidth, chartHeight);
+        yPosition += chartHeight + 12;
+      }
+
+      // Add metadata
+      pdf.setFontSize(8);
+      pdf.setTextColor(150);
+      pdf.text(`Metric: ${selectedMetric}`, contentX, yPosition);
+
+      // Check if we need a new page for quadrant
+      if (yPosition > pageHeight - margin - 100) {
+        pdf.addPage();
+        yPosition = margin;
+      } else {
+        yPosition += 12;
+      }
+
+      // Add quadrant chart
+      pdf.setFontSize(12);
+      pdf.setTextColor(51, 51, 51);
+      pdf.text('Policy Analysis: Subsidy Efficiency Quadrants', contentX, yPosition);
+      yPosition += 8;
+
+      if (quadrantChart) {
+        const quadrantImage = quadrantChart.toBase64Image();
+        pdf.addImage(quadrantImage, 'PNG', contentX, yPosition, contentWidth, chartHeight);
+      }
+
+      // Save PDF
+      const filename = `solar-subsidy-analysis-${new Date().toISOString().split('T')[0]}.pdf`;
+      pdf.save(filename);
+    }
+  </script>
+</body>
+</html>
