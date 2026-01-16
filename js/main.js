@@ -93,63 +93,19 @@
   // METRICS CALCULATION
   // ============================================
   async function loadMetrics() {
-    try {
-      const response = await fetch('data/solar.csv');
-      if (!response.ok) throw new Error('Failed to load CSV');
-      
-      const text = await response.text();
-      const lines = text.trim().split('\n');
-      const headers = lines[0].split(',');
-      
-      // Find column indices
-      const capacityIdx = headers.indexOf('total_kW');
-      const subsidyIdx = headers.indexOf('total_subsidy');
-      const countIdx = headers.indexOf('project_count');
-      
-      if (capacityIdx === -1 || subsidyIdx === -1 || countIdx === -1) {
-        throw new Error('Required columns not found');
-      }
+    // Set static metric values
+    const capacityEl = document.getElementById('metricCapacity');
+    const subsidyEl = document.getElementById('metricIncentive');
+    const projectsEl = document.getElementById('metricInstallations');
 
-      // Calculate totals (skip header row)
-      let totalCapacity = 0;
-      let totalSubsidy = 0;
-      let totalProjects = 0;
-
-      for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split(',');
-        const capacity = parseFloat(values[capacityIdx]) || 0;
-        const subsidy = parseFloat(values[subsidyIdx]) || 0;
-        const projects = parseFloat(values[countIdx]) || 0;
-
-        totalCapacity += capacity;
-        totalSubsidy += subsidy;
-        totalProjects += projects;
-      }
-
-      // Format and display
-      const capacityEl = document.getElementById('metricCapacity');
-      const subsidyEl = document.getElementById('metricIncentive');
-      const projectsEl = document.getElementById('metricInstallations');
-
-      if (capacityEl) {
-        capacityEl.textContent = formatNumber(totalCapacity, 'kW');
-      }
-      if (subsidyEl) {
-        subsidyEl.textContent = formatCurrency(totalSubsidy);
-      }
-      if (projectsEl) {
-        projectsEl.textContent = formatNumber(totalProjects, '');
-      }
-    } catch (error) {
-      console.error('Error loading metrics:', error);
-      // Set fallback values
-      const capacityEl = document.getElementById('metricCapacity');
-      const subsidyEl = document.getElementById('metricIncentive');
-      const projectsEl = document.getElementById('metricInstallations');
-      
-      if (capacityEl) capacityEl.textContent = '—';
-      if (subsidyEl) subsidyEl.textContent = '—';
-      if (projectsEl) projectsEl.textContent = '—';
+    if (capacityEl) {
+      capacityEl.textContent = '7.3 GW';
+    }
+    if (subsidyEl) {
+      subsidyEl.textContent = '$33.5B';
+    }
+    if (projectsEl) {
+      projectsEl.textContent = '2015–2025';
     }
   }
 
