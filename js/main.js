@@ -1,39 +1,237 @@
 // js/main.js
 
 (function () {
-  // Footer year
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  'use strict';
 
-  // Mobile menu (shared across pages)
-  const btn = document.getElementById("menuBtn");
-  const menu = document.getElementById("mobileNav");
-  if (!btn || !menu) return;
+  // ============================================
+  // FOOTER YEAR
+  // ============================================
+  const yearEl = document.getElementById('year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 
-  btn.addEventListener("click", () => {
-    const open = !menu.hasAttribute("hidden");
-    if (open) {
-      menu.setAttribute("hidden", "");
-      btn.setAttribute("aria-expanded", "false");
-    } else {
-      menu.removeAttribute("hidden");
-      btn.setAttribute("aria-expanded", "true");
+  // ============================================
+  // MOBILE MENU
+  // ============================================
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  
+  if (menuBtn && mobileNav) {
+    menuBtn.addEventListener('click', () => {
+      const isOpen = !mobileNav.hasAttribute('hidden');
+      if (isOpen) {
+        mobileNav.setAttribute('hidden', '');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      } else {
+        mobileNav.removeAttribute('hidden');
+        menuBtn.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (mobileNav.hasAttribute('hidden')) return;
+      if (e.target === menuBtn || mobileNav.contains(e.target)) return;
+      mobileNav.setAttribute('hidden', '');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+
+    // Close on anchor clicks
+    mobileNav.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        mobileNav.setAttribute('hidden', '');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // ============================================
+  // MAPBOX HERO MAP
+  // ============================================
+  const heroMapEl = document.getElementById('heroMap');
+  if (heroMapEl && typeof mapboxgl !== 'undefined') {
+    // IMPORTANT: Replace with your Mapbox access token
+    // Get one at: https://account.mapbox.com/access-tokens/
+    // Set your token here:
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYXdhc3NhZGExMjM0NSIsImEiOiJjbWlkeXljcjEwYzFrMmpwcmFjaGJhZWhlIn0.9HwDQ6mue3mPjDWwzJANUw';
+    
+    // If no token is set, use fallback
+    if (mapboxgl.accessToken === 'YOUR_MAPBOX_ACCESS_TOKEN_HERE') {
+      heroMapEl.style.background = 'linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%)';
+      console.warn('Mapbox token not configured. Please add your access token in js/main.js');
+      return;
     }
+    
+    // Initialize map centered on California
+    const map = new mapboxgl.Map({
+      container: 'heroMap',
+      style: 'mapbox://styles/mapbox/light-v11', // Light style for airy feel
+      center: [-119.4179, 36.7783], // California center
+      zoom: 5.5,
+      pitch: 0,
+      bearing: 0,
+      interactive: false, // Lock interactions for visual-only
+      attributionControl: false
+    });
+
+    // Add low saturation and light feel via CSS filter
+    heroMapEl.style.filter = 'saturate(0.4) brightness(1.1)';
+
+    // Optional: Add a subtle animation on load
+    map.on('load', () => {
+      // Map is ready
+      heroMapEl.style.transition = 'filter 0.5s ease';
+    });
+  } else if (heroMapEl) {
+    // Fallback if Mapbox fails to load
+    heroMapEl.style.background = 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)';
+    console.warn('Mapbox GL JS not loaded. Using fallback background.');
+  }
+
+  // ============================================
+  // METRICS CALCULATION
+  // ============================================
+  async function loadMetrics() {
+    try {
+      const response = await fetch('data/solar.csv');
+      if (!response.ok) throw new Error('Failed to load CSV');
+      
+      const text = await response.text();
+      const lines = text.trim().split('\n');
+      const headers = lines[0].split(',');
+      
+      // Find column indices
+      const capacityIdx = headers.indexOf('total_kW');
+      const subsidyIdx = headers.indexOf('total_subsidy');
+      const countIdx = headers.indexOf('project_count');
+      
+      if (capacityIdx === -1 || subsidyIdx === -1 || countIdx === -1) {
+        throw new Error('Required columns not found');
+      }
+
+      // Calculate totals (skip header row)
+      let totalCapacity = 0;
+      let totalSubsidy = 0;
+      let totalProjects = 0;
+
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',');
+        const capacity = parseFloat(values[capacityIdx]) || 0;
+        const subsidy = parseFloat(values[subsidyIdx]) || 0;
+        const projects = parseFloat(values[countIdx]) || 0;
+
+        totalCapacity += capacity;
+        totalSubsidy += subsidy;
+        totalProjects += projects;
+      }
+
+      // Format and display
+      const capacityEl = document.getElementById('metricCapacity');
+      const subsidyEl = document.getElementById('metricIncentive');
+      const projectsEl = document.getElementById('metricInstallations');
+
+      if (capacityEl) {
+        capacityEl.textContent = formatNumber(totalCapacity, 'kW');
+      }
+      if (subsidyEl) {
+        subsidyEl.textContent = formatCurrency(totalSubsidy);
+      }
+      if (projectsEl) {
+        projectsEl.textContent = formatNumber(totalProjects, '');
+      }
+    } catch (error) {
+      console.error('Error loading metrics:', error);
+      // Set fallback values
+      const capacityEl = document.getElementById('metricCapacity');
+      const subsidyEl = document.getElementById('metricIncentive');
+      const projectsEl = document.getElementById('metricInstallations');
+      
+      if (capacityEl) capacityEl.textContent = '—';
+      if (subsidyEl) subsidyEl.textContent = '—';
+      if (projectsEl) projectsEl.textContent = '—';
+    }
+  }
+
+  function formatNumber(num, unit) {
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1) + 'M' + (unit ? ' ' + unit : '');
+    } else if (num >= 1000) {
+      return (num / 1000).toFixed(1) + 'K' + (unit ? ' ' + unit : '');
+    }
+    return Math.round(num).toLocaleString() + (unit ? ' ' + unit : '');
+  }
+
+  function formatCurrency(num) {
+    if (num >= 1000000000) {
+      return '$' + (num / 1000000000).toFixed(1) + 'B';
+    } else if (num >= 1000000) {
+      return '$' + (num / 1000000).toFixed(1) + 'M';
+    } else if (num >= 1000) {
+      return '$' + (num / 1000).toFixed(1) + 'K';
+    }
+    return '$' + Math.round(num).toLocaleString();
+  }
+
+  // Load metrics on page load
+  loadMetrics();
+
+  // ============================================
+  // FAQ ACCORDION
+  // ============================================
+  const faqQuestions = document.querySelectorAll('.faq-question');
+  
+  faqQuestions.forEach((question) => {
+    question.addEventListener('click', () => {
+      const isExpanded = question.getAttribute('aria-expanded') === 'true';
+      const answerId = question.getAttribute('aria-controls');
+      const answer = document.getElementById(answerId);
+      
+      if (!answer) return;
+
+      // Close all other FAQs
+      faqQuestions.forEach((q) => {
+        if (q !== question) {
+          q.setAttribute('aria-expanded', 'false');
+          const otherAnswerId = q.getAttribute('aria-controls');
+          const otherAnswer = document.getElementById(otherAnswerId);
+          if (otherAnswer) {
+            otherAnswer.setAttribute('hidden', '');
+          }
+        }
+      });
+
+      // Toggle current FAQ
+      if (isExpanded) {
+        question.setAttribute('aria-expanded', 'false');
+        answer.setAttribute('hidden', '');
+      } else {
+        question.setAttribute('aria-expanded', 'true');
+        answer.removeAttribute('hidden');
+      }
+    });
   });
 
-  // Close when clicking outside
-  document.addEventListener("click", (e) => {
-    if (menu.hasAttribute("hidden")) return;
-    if (e.target === btn || menu.contains(e.target)) return;
-    menu.setAttribute("hidden", "");
-    btn.setAttribute("aria-expanded", "false");
-  });
+  // ============================================
+  // SMOOTH SCROLL FOR ANCHOR LINKS
+  // ============================================
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href === '#') return;
+      
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const headerOffset = 80;
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-  // Close on anchor clicks (Method/Sources links)
-  menu.querySelectorAll('a[href*="#"]').forEach((a) => {
-    a.addEventListener("click", () => {
-      menu.setAttribute("hidden", "");
-      btn.setAttribute("aria-expanded", "false");
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
     });
   });
 })();

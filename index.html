@@ -8,200 +8,318 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Mapbox GL CSS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <header class="site-header">
-    <div class="container-wide">
-      <div class="nav">
-        <a class="brand" href="./" aria-label="Home">
-          <span class="brand-mark" aria-hidden="true"></span>
-          <span>
-            <span class="brand-name">Sunlight Ledger</span>
-            <span class="brand-sub">Subsidies • Capacity • Equity</span>
-          </span>
+  <!-- TOP NAV -->
+  <header class="site-header" id="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="./" aria-label="Home">
+          <span class="brand-name">Sunlight Ledger</span>
+          <span class="brand-subtitle">Transparency project</span>
         </a>
+      </div>
 
-        <nav class="nav-links" aria-label="Primary">
-          <a href="dashboard/">Dashboard</a>
-          <a href="our-team/">Team</a>
-          <a href="#method">Method</a>
-          <a href="#sources">Sources</a>
-        </nav>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="dashboard/">Dashboard</a>
+        <a href="#method">Method</a>
+        <a href="#sources">Sources</a>
+      </nav>
 
-        <div class="nav-cta">
-          <a class="btn" href="our-team/">About</a>
-          <a class="btn btn-primary" href="dashboard/">Open dashboard →</a>
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="#team">Team</a>
+        <a class="btn btn-primary" href="dashboard/">Open dashboard</a>
+        
+        <button class="btn-mobile-menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
 
-          <button class="btn nav-menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav">
-            Menu
-          </button>
-        </div>
-
-        <div class="mobile-nav" id="mobileNav" hidden>
-          <a href="dashboard/">Dashboard</a>
-          <a href="our-team/">Team</a>
-          <a href="#method">Method</a>
-          <a href="#sources">Sources</a>
-        </div>
+      <div class="mobile-nav" id="mobileNav" hidden>
+        <a href="dashboard/">Dashboard</a>
+        <a href="#method">Method</a>
+        <a href="#sources">Sources</a>
+        <a href="#team">Team</a>
+        <a class="btn btn-primary" href="dashboard/">Open dashboard</a>
       </div>
     </div>
   </header>
 
   <main>
+    <!-- HERO SECTION WITH MAPBOX -->
     <section class="hero">
-      <div class="container-wide">
-        <div class="hero-frame" role="img" aria-label="Hero image">
-          <div class="hero-inner">
-            <div class="kicker">
-              <span class="kicker-dot" aria-hidden="true"></span>
-              A public-interest transparency project
+      <div class="hero-map" id="heroMap"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-inner">
+          <div class="hero-eyebrow">A public-interest transparency project</div>
+          <h1 class="hero-title">We show where solar money goes—and who it actually benefits.</h1>
+          <p class="hero-description">
+            We map where solar capacity is being built, how subsidy dollars are distributed,
+            and what the data implies about who benefits — with an audit trail that stands up to scrutiny.
+          </p>
+          <p class="hero-proof">Built from California DGStats data covering 2020–2025.</p>
+          <div class="hero-actions">
+            <a class="btn btn-secondary" href="#method">How it works</a>
+          </div>
+          <div class="hero-chips">
+            <div class="chip">
+              <span class="chip-label">Granularity:</span>
+              <span class="chip-value">ZIP / tract</span>
             </div>
-
-            <h1>Follow the money in solar.</h1>
-
-            <p>
-              We map where solar capacity is being built, how subsidy dollars are distributed,
-              and what the data implies about who benefits — with an audit trail that stands up to scrutiny.
-            </p>
-
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="dashboard/">Explore the dashboard →</a>
-              <a class="btn" href="#method">How it works</a>
+            <div class="chip">
+              <span class="chip-label">Principle:</span>
+              <span class="chip-value">sourceable, linkable, reproducible</span>
             </div>
-
-            <div class="hero-meta">
-              <span><strong>Granularity:</strong> ZIP / tract where available</span>
-              <span><strong>Principle:</strong> sourceable, linkable, reproducible</span>
-              <span><strong>Use cases:</strong> reporting, oversight, policy design</span>
+            <div class="chip">
+              <span class="chip-label">Use cases:</span>
+              <span class="chip-value">reporting, oversight, policy design</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="method">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>What this makes possible</h2>
-            <p class="lead">
-              Not another infographic. A durable interface for answering the same uncomfortable question,
-              repeatedly, as programmes evolve: <em>where does the support land?</em>
-            </p>
+    <!-- FIRST SCROLL TRANSITION -->
+    <section class="transition-section">
+      <div class="transition-content">
+        <div class="transition-eyebrow">What this makes visible</div>
+        <h2 class="transition-title">Transparency at ZIP level.</h2>
+        <div class="transition-insights">
+          <div class="insight-item">
+            <div class="insight-lead">Where subsidies land.</div>
+            <div class="insight-muted">Track public dollars across ZIP codes.</div>
+          </div>
+          <div class="insight-item">
+            <div class="insight-lead">Where capacity grows.</div>
+            <div class="insight-muted">Compare buildout patterns over time.</div>
+          </div>
+          <div class="insight-item">
+            <div class="insight-lead">Where adoption clusters.</div>
+            <div class="insight-muted">Count installations to see participation.</div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="grid">
-          <div class="card span-4">
+    <!-- KEY METRICS SECTION -->
+    <section class="metrics-section">
+      <div class="container">
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value" id="metricCapacity">—</div>
+            <div class="metric-label">Total installed capacity</div>
+            <div class="metric-description">Cumulative solar capacity across all installations</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" id="metricIncentive">—</div>
+            <div class="metric-label">Total incentive paid</div>
+            <div class="metric-description">Sum of all subsidy dollars distributed</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" id="metricInstallations">—</div>
+            <div class="metric-label">Number of installations</div>
+            <div class="metric-description">Total count of solar projects tracked</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- METHOD SECTION -->
+    <section class="section" id="method">
+      <div class="container">
+        <div class="section-header">
+          <h2>What this makes possible</h2>
+          <p class="section-lead">
+            Not another infographic. A durable interface for answering the same uncomfortable question,
+            repeatedly, as programmes evolve: <em>where does the support land?</em>
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
             <h3>Subsidy flow, by place</h3>
             <p>Track dollars by geography — and keep the chain of sources visible.</p>
           </div>
-          <div class="card span-4">
+          <div class="feature-card">
             <h3>Capacity buildout</h3>
-            <p>See where installations accumulate over time and where they don’t.</p>
+            <p>See where installations accumulate over time and where they don't.</p>
           </div>
-          <div class="card span-4">
+          <div class="feature-card">
             <h3>Equity lens</h3>
             <p>Compare subsidy intensity against income/wealth proxies and demographics.</p>
           </div>
-
-          <div class="card span-6">
+          <div class="feature-card">
             <h3>Designed for scrutiny</h3>
             <p>
               Definitions, assumptions, and caveats are first-class UI — not hidden in a PDF appendix.
             </p>
           </div>
-          <div class="card span-6">
+          <div class="feature-card">
             <h3>Built for embedding</h3>
             <p>
               Shareable views for newsrooms and briefings — and stable links you can cite.
             </p>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="cta">
-          <div class="copy">
-            <h3>Start with the dashboard</h3>
-            <p>Maps, filters, and the first D3 modules live here.</p>
+    <!-- DATA SOURCES SECTION -->
+    <section class="section" id="sources">
+      <div class="container">
+        <div class="section-header">
+          <h2>Data you can actually cite</h2>
+          <p class="section-lead">
+            The point is not to be flashy — it's to be defensible. Each dataset gets a plain-language definition and a link back to origin.
+          </p>
+        </div>
+
+        <div class="sources-grid">
+          <div class="source-card">
+            <h3>Solar Installation Data</h3>
+            <p>Comprehensive dataset tracking solar installations, capacity, and subsidy distribution by ZIP code and census tract.</p>
+            <a class="btn btn-secondary btn-small" href="data/solar.csv" download>Download CSV</a>
           </div>
-          <div>
-            <a class="btn btn-primary" href="dashboard/">Open dashboard →</a>
+          <div class="source-card">
+            <h3>Data Architecture</h3>
+            <p>Documentation of data structure, relationships, and methodology for reproducible analysis.</p>
+            <a class="btn btn-secondary btn-small" href="data/Data_architect.pdf" target="_blank">View PDF</a>
+          </div>
+          <div class="source-card">
+            <h3>Data Sources</h3>
+            <p>Complete list of primary sources, collection methods, and attribution for all datasets.</p>
+            <a class="btn btn-secondary btn-small" href="data/Data_source.pdf" target="_blank">View PDF</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="sources">
+    <!-- TEAM SECTION -->
+    <section class="section team-section" id="team">
       <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Data you can actually cite</h2>
-            <p class="lead">
-              The point is not to be flashy — it’s to be defensible. Each dataset gets a plain-language definition and a link back to origin.
-            </p>
-          </div>
+        <div class="section-header">
+          <h2>Team</h2>
         </div>
 
-        <div class="split">
-          <div class="panel">
-            <div class="panel-inner">
-              <div class="eyebrow">Transparency standard</div>
-              <h3>Sources, joins, and caveats are first-class UI</h3>
-              <p>
-                We show how records are aggregated, when ZIP codes are proxies, and what breaks when boundaries or reporting change —
-                without turning the interface into a wall of text.
-              </p>
+        <div class="team-grid">
+          <div class="team-card">
+            <div class="team-placeholder" aria-hidden="true">
+              <span class="team-placeholder-dot"></span>
+            </div>
+            <h3 class="team-card-title">Team member</h3>
+            <div class="team-role">Data</div>
+            <p class="team-description">Responsible for data collection, processing, and ensuring accuracy of all datasets.</p>
+          </div>
+
+          <div class="team-card">
+            <div class="team-placeholder" aria-hidden="true">
+              <span class="team-placeholder-dot"></span>
+            </div>
+            <h3 class="team-card-title">Team member</h3>
+            <div class="team-role">Design</div>
+            <p class="team-description">Creates clear, accessible interfaces that make complex data understandable.</p>
+          </div>
+
+          <div class="team-card">
+            <div class="team-placeholder" aria-hidden="true">
+              <span class="team-placeholder-dot"></span>
+            </div>
+            <h3 class="team-card-title">Team member</h3>
+            <div class="team-role">Engineering</div>
+            <p class="team-description">Builds the technical infrastructure and visualization tools for the platform.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section faq-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Frequently asked questions</h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
+              <span>What is the granularity of the data?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-1" hidden>
+              <p>Data is available at ZIP code and census tract levels where available. Geographic precision varies by source dataset and reporting requirements.</p>
             </div>
           </div>
 
-          <div class="panel">
-            <div class="panel-inner">
-              <div class="eyebrow">Audience</div>
-              <h3>Journalists • watchdogs • lawmakers</h3>
-              <p>
-                Built for people who need to validate claims quickly and reproduce results without “trust me” screenshots.
-              </p>
-              <div style="height:12px"></div>
-              <a class="btn" href="our-team/">Meet the team →</a>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
+              <span>How do you ensure data accuracy?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-2" hidden>
+              <p>All data includes source attribution and methodology documentation. We maintain an audit trail that links back to original sources, making it possible to verify and reproduce our findings.</p>
             </div>
           </div>
-        </div>
 
-        <div class="grid" style="margin-top:14px;">
-          <div class="card span-4">
-            <h3>Plain-English definitions</h3>
-            <p>Terms mean what the underlying programme says they mean.</p>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
+              <span>Can I use this data for reporting or research?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-3" hidden>
+              <p>Yes. The project is designed for journalists, researchers, and policymakers. All datasets are available for download, and we provide stable links for citation. Please attribute Sunlight Ledger when using our data.</p>
+            </div>
           </div>
-          <div class="card span-4">
-            <h3>Versioned methodology</h3>
-            <p>When assumptions change, the audit trail stays intact.</p>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
+              <span>How often is the data updated?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-4" hidden>
+              <p>Update frequency depends on source data availability. We document versioning and update dates for each dataset. Check the methodology documentation for specific update schedules.</p>
+            </div>
           </div>
-          <div class="card span-4">
-            <h3>Export-friendly views</h3>
-            <p>Tables and filtered cuts should be usable outside the interface.</p>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
+              <span>What makes this different from other solar data projects?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-5" hidden>
+              <p>Sunlight Ledger prioritizes transparency and reproducibility. Definitions, assumptions, and caveats are built into the interface itself, not buried in appendices. Every number can be traced back to its source with clear methodology.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- FOOTER -->
   <footer class="footer">
-    <div class="container-wide">
-      <div class="footer-row">
-        <span>© <span id="year"></span> Sunlight Ledger</span>
-        <span style="display:flex; gap:14px; flex-wrap:wrap;">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-copyright">© <span id="year"></span> Sunlight Ledger</div>
+        <div class="footer-links">
           <a href="dashboard/">Dashboard</a>
-          <a href="our-team/">Team</a>
+          <a href="#team">Team</a>
           <a href="#sources">Sources</a>
-        </span>
+        </div>
       </div>
     </div>
   </footer>
 
+  <!-- Mapbox GL JS -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>
