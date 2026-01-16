@@ -198,7 +198,7 @@
           <div class="source-card">
             <h3>Solar Installation Data</h3>
             <p>Comprehensive dataset tracking solar installations, capacity, and subsidy distribution by ZIP code and census tract.</p>
-            <a class="btn btn-secondary btn-small" href="data/solar.csv" download>Download CSV</a>
+            <a class="btn btn-secondary btn-small" href="#" onclick="downloadBothCSVs(); return false;">Download CSV</a>
           </div>
         </div>
       </div>
@@ -419,5 +419,25 @@
   <!-- Mapbox GL JS -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
   <script src="js/main.js" defer></script>
+  
+  <script>
+    function downloadBothCSVs() {
+      const files = [
+        'assets/market_summary_final.csv',
+        'assets/low_income_summary_final.csv'
+      ];
+      
+      files.forEach((file, index) => {
+        setTimeout(() => {
+          const link = document.createElement('a');
+          link.href = file;
+          link.download = file.split('/').pop();
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }, index * 200);
+      });
+    }
+  </script>
 </body>
 </html>
