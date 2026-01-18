@@ -61,46 +61,13 @@
   }
 
   // ============================================
-  // MAPBOX HERO MAP
-  // ============================================
+  // HERO MAP BACKGROUND IMAGE ONLY (no Mapbox)
   const heroMapEl = document.getElementById('heroMap');
-  if (heroMapEl && typeof mapboxgl !== 'undefined') {
-    // IMPORTANT: Replace with your Mapbox access token
-    // Get one at: https://account.mapbox.com/access-tokens/
-    // Set your token here:
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYXdhc3NhZGExMjM0NSIsImEiOiJjbWlkeXljcjEwYzFrMmpwcmFjaGJhZWhlIn0.9HwDQ6mue3mPjDWwzJANUw';
-    
-    // If no token is set, use fallback
-    if (mapboxgl.accessToken === 'YOUR_MAPBOX_ACCESS_TOKEN_HERE') {
-      heroMapEl.style.background = 'linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%)';
-      console.warn('Mapbox token not configured. Please add your access token in js/main.js');
-      return;
-    }
-    
-    // Initialize map centered on California
-    const map = new mapboxgl.Map({
-      container: 'heroMap',
-      style: 'mapbox://styles/mapbox/light-v11', // Light style for airy feel
-      center: [-119.4179, 36.7783], // California center
-      zoom: 5.5,
-      pitch: 0,
-      bearing: 0,
-      interactive: false, // Lock interactions for visual-only
-      attributionControl: false
-    });
-
-    // Add low saturation and light feel via CSS filter
-    heroMapEl.style.filter = 'saturate(0.4) brightness(1.1)';
-
-    // Optional: Add a subtle animation on load
-    map.on('load', () => {
-      // Map is ready
-      heroMapEl.style.transition = 'filter 0.5s ease';
-    });
-  } else if (heroMapEl) {
-    // Fallback if Mapbox fails to load
-    heroMapEl.style.background = 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)';
-    console.warn('Mapbox GL JS not loaded. Using fallback background.');
+  if (heroMapEl) {
+    heroMapEl.style.backgroundImage = "url('assets/background.jpg')";
+    heroMapEl.style.backgroundSize = 'cover';
+    heroMapEl.style.backgroundPosition = 'center';
+    heroMapEl.style.backgroundAttachment = 'fixed';
   }
 
   // ============================================
