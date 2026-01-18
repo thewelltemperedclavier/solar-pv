@@ -1,167 +1,24 @@
-/* dashboard/dashboard.css */
-/* Keeps dashboard-specific layout/styles out of global style.css */
 
-.chart-grid{
-  display:grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 14px;
-}
 
-.chart-card{
-  border-radius: var(--radius);
-  border: 1px solid rgba(11,18,32,.10);
-  background: rgba(255,255,255,.82);
-  box-shadow: 0 10px 28px rgba(11,18,32,.06);
-  padding: 14px;
-}
 
-.chart-head{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap: 12px;
-  margin-bottom: 10px;
-}
 
-.chart-title{
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
 
-.chart-sub{
-  margin-top: 4px;
-  font-size: 13px;
-  color: var(--muted2);
-}
 
-.chip{
-  display:inline-flex;
-  align-items:center;
-  padding: 8px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  color: rgba(11,18,32,.86);
-  background: rgba(11,18,32,.04);
-  border: 1px solid rgba(11,18,32,.10);
-  white-space: nowrap;
-}
 
-.legend-wrap{
-  margin-top: 10px;
-  display:flex;
-  justify-content:flex-end;
-}
 
-.dash-card{
-  border-radius: 16px;
-  border: 1px solid rgba(11,18,32,.10);
-  background: rgba(255,255,255,.74);
-  box-shadow: 0 10px 24px rgba(11,18,32,.06);
-  padding: 14px;
-}
 
-.dash-card-title{
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 12px;
-}
 
-.form-row{
-  display:flex;
-  flex-direction:column;
-  gap: 8px;
-  margin-top: 10px;
-}
 
-.form-row label{
-  font-size: 13px;
-  color: var(--muted2);
-}
 
-.form-row select,
-.form-row input{
-  border: 1px solid rgba(11,18,32,.12);
-  background: rgba(255,255,255,.92);
-  border-radius: 12px;
-  padding: 10px 12px;
-  font-size: 14px;
-  color: var(--text);
-}
 
-.micro{
-  font-size: 12px;
-  color: var(--muted2);
-  margin-top: 6px;
-}
 
-.btn-row{
-  margin-top: 12px;
-  display:flex;
-  gap: 10px;
-  flex-wrap:wrap;
-}
 
-.status{
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.4;
-}
 
-.mini-kpis{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
 
-.mini-kpi{
-  border: 1px solid rgba(11,18,32,.10);
-  background: rgba(11,18,32,.02);
-  border-radius: 14px;
-  padding: 10px;
-}
 
-.mini-kpi .k{
-  font-size: 12px;
-  color: var(--muted2);
-}
 
-.mini-kpi .v{
-  margin-top: 4px;
-  font-weight: 750;
-  letter-spacing: -0.02em;
-}
 
-#mapStage{ position:relative; }
-.tooltip{
-  position:absolute;
-  pointer-events:none;
-  opacity:0;
-  background:#fff;
-  border:1px solid rgba(11,18,32,.12);
-  border-radius: 12px;
-  padding: 10px 12px;
-  box-shadow: 0 12px 26px rgba(17,24,39,.12);
-  font-size: 12px;
-  line-height: 1.35;
-  transform: translate(12px, 12px);
-  min-width: 200px;
-}
 
-.tooltip .zip{ font-weight: 750; margin-bottom: 6px; }
-.tooltip .row{ display:flex; justify-content:space-between; gap:10px; color: var(--muted2); }
-.tooltip .row b{ color: var(--text); font-weight: 650; }
 
-.mini-stage{
-  border-radius: 14px;
-  border: 1px solid rgba(11,18,32,.10);
-  background: rgba(11,18,32,.02);
-  min-height: 320px;
-  overflow:hidden;
-}
 
-.span-6{ grid-column: span 6; }
-.span-12{ grid-column: span 12; }
 
-@media (max-width: 940px){
-  .span-6{ grid-column: span 12; }
-}
