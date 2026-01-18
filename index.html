@@ -10,9 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Mapbox GL CSS -->
-  <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
-
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -20,20 +17,19 @@
   <!-- TOP NAV -->
   <header class="site-header" id="navbar">
     <div class="nav-container">
-      <!-- Brand (logo all the way left) -->
+      <!-- Brand -->
       <a class="nav-brand" href="./" aria-label="Sunlight Ledger home">
         <img class="brand-logo" src="assets/AR.png" alt="Sunlight Ledger logo" />
       </a>
 
-      <!-- Links (all the way right) -->
+      <!-- Links -->
       <nav class="nav-links" aria-label="Primary">
-        <a href="faq.html">FAQ</a>
-        <a href="#method">Method</a>
-        <a href="#sources">Sources</a>
+        <a href="https://awassada-viz.d333yqz919g9ej.amplifyapp.com/" target="_blank" rel="noreferrer">Dashboard</a>
+        <a href="data-hub/">Data</a>
         <a href="our-team/">Team</a>
       </nav>
 
-      <!-- Mobile menu button (only appears on mobile via CSS) -->
+      <!-- Mobile menu button -->
       <div class="nav-actions">
         <button
           class="btn-mobile-menu"
@@ -43,97 +39,60 @@
           aria-controls="mobileNav"
           aria-label="Toggle menu"
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span><span></span><span></span>
         </button>
       </div>
     </div>
 
     <!-- Mobile nav -->
     <div class="mobile-nav" id="mobileNav" hidden>
-      <a href="dashboard/">Dashboard</a>
-      <a href="#method">Method</a>
-      <a href="#sources">Sources</a>
+      <a href="https://awassada-viz.d333yqz919g9ej.amplifyapp.com/" target="_blank" rel="noreferrer">Dashboard</a>
+      <a href="data-hub/">Data</a>
       <a href="our-team/">Team</a>
     </div>
   </header>
 
   <main>
-    <!-- HERO SECTION WITH MAPBOX -->
-    <section class="hero">
-      <div class="hero-map" id="heroMap"></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-inner">
-          <div class="hero-eyebrow">A public-interest transparency project</div>
-          <h1 class="hero-title">Tracking Solar PV Systems in California</h1>
-          <p class="hero-description">
-            We map where solar capacity is being built, how subsidy dollars are distributed,
-            and what the data implies about who benefits — with an audit trail that stands up to scrutiny.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-secondary" href="#method">Transparency at ZIP level</a>
-          </div>
-
-          <div class="hero-chips">
-            <div class="chip">
-              <span class="chip-label">Granularity:</span>
-                <span class="chip-value">ZIP / County</span>
-            </div>
-            <div class="chip">
-              <span class="chip-label">Principle:</span>
-              <span class="chip-value">sourceable, linkable, reproducible</span>
-            </div>
-            <div class="chip">
-              <span class="chip-label">Use cases:</span>
-              <span class="chip-value">reporting, oversight, policy design</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- KEY METRICS SECTION -->
-    <section class="metrics-section">
+    <!-- HERO (Bain-style split: text left, image collage right) -->
+    <section class="hero-split">
       <div class="container">
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-value" id="metricCapacity">7.3 GW</div>
-            <div class="metric-label">Total residential solar capacity added</div>
-            <div class="metric-description">Installed residential PV capacity across California (2015–2025)</div>
+        <div class="hero-split-grid">
+          <!-- LEFT: text -->
+          <div class="hero-left">
+            <div class="hero-eyebrow">A public-interest transparency project</div>
+
+            <h1 class="hero-split-title">
+              Track subsidy flow,<br />
+              capacity build,<br />
+              and who benefits.
+            </h1>
+
+            <p class="hero-split-description">
+              We map where solar capacity is being built, how subsidy dollars are distributed,
+              and what the data implies — with an audit trail that stands up to scrutiny.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-secondary" href="data-hub/">Explore the data</a>
+            </div>
           </div>
-          <div class="metric-card">
-            <div class="metric-value" id="metricIncentive">$33.5B</div>
-            <div class="metric-label">Total residential solar system cost</div>
-            <div class="metric-description">Sum of reported system costs across California (2015–2025)</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-value" id="metricInstallations">2015–2025</div>
-            <div class="metric-label">Data coverage period</div>
-            <div class="metric-description">California Distributed Generation Statistics (DGStats)</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-value">30.5 MW</div>
-            <div class="metric-label">Low-income programme solar capacity added</div>
-            <div class="metric-description">Installed capacity recorded in SASH/MASH/DAC-SASH (2015–2025)</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-value">$160M</div>
-            <div class="metric-label">Low-income programme system cost</div>
-            <div class="metric-description">Sum of reported system costs in programme records (2015–2025)</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-value">$95M</div>
-            <div class="metric-label">Incentives paid (low-income programmes)</div>
-            <div class="metric-description">Total subsidy dollars distributed through SASH/MASH/DAC-SASH (2015–2025)</div>
+
+          <!-- RIGHT: collage -->
+          <div class="hero-right" aria-hidden="true">
+            <div class="hero-collage">
+              <!-- These are placeholders. Replace the src with your real images later. -->
+              <img class="collage-img collage-a" src="assets/background.jpg" alt="" />
+              <img class="collage-img collage-b" src="assets/background.jpg" alt="" />
+              <img class="collage-img collage-c" src="assets/background.jpg" alt="" />
+              <img class="collage-img collage-d" src="assets/background.jpg" alt="" />
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- METHOD SECTION -->
-    <section class="section" id="method">
+    <!-- WHAT THIS MAKES POSSIBLE -->
+    <section class="section" id="overview">
       <div class="container">
         <div class="section-header">
           <h2>What this makes possible</h2>
@@ -168,28 +127,72 @@
       </div>
     </section>
 
-    <!-- DATA SOURCES SECTION -->
-    <section class="section" id="sources">
+    <!-- FAQ SECTION -->
+    <section class="section faq-section">
       <div class="container">
         <div class="section-header">
-          <h2>Data you can actually cite</h2>
+          <h2>Frequently asked questions</h2>
         </div>
 
-        <div class="sources-grid">
-          <div class="source-card">
-            <h3>Solar Installation Data</h3>
-            <p>Comprehensive dataset tracking solar installations, capacity, and subsidy distribution by ZIP code and census tract.</p>
-            <a class="btn btn-secondary btn-small" href="data/solar.csv" download>Download CSV</a>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-0">
+              <span>Why does the government subsidize PV panel installation?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-0" hidden>
+              <p>Governments subsidize solar PV (photovoltaic) to accelerate the green transition, reduce pressure on energy infrastructure, and support equitable access to clean energy.</p>
+            </div>
           </div>
-          <div class="source-card">
-            <h3>Data Architecture</h3>
-            <p>Documentation of data structure, relationships, and methodology for reproducible analysis.</p>
-            <a class="btn btn-secondary btn-small" href="data/Data_architect.pdf" target="_blank" rel="noreferrer">View PDF</a>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
+              <span>What is SASH?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-1" hidden>
+              <p>The Single-family Affordable Solar Homes program (SASH 1.0 &amp; 2.0) provides solar incentives for owner-occupied, low-income households.</p>
+            </div>
           </div>
-          <div class="source-card">
-            <h3>Data Sources</h3>
-            <p>Complete list of primary sources, collection methods, and attribution for all datasets.</p>
-            <a class="btn btn-secondary btn-small" href="data/Data_source.pdf" target="_blank" rel="noreferrer">View PDF</a>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
+              <span>What is MASH?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-2" hidden>
+              <p>The Multi-family Affordable Solar Housing program (MASH 1.0 &amp; 2.0) provides incentives for solar installations on qualifying multi-family affordable housing properties.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
+              <span>What is DAC-SASH?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-3" hidden>
+              <p>The Disadvantaged Communities - Single-family Affordable Solar Homes program is the successor to SASH, specifically targeting homeowners in the top 25% most disadvantaged communities in California.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
+              <span>What is "Low Income"?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-4" hidden>
+              <p>Eligibility is defined by properties qualifying as affordable housing or households meeting annual income limits set by the California Alternate Rates for Energy (CARE) or Family Electric Rate Assistance (FERA) guidelines.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
+              <span>What are PG&amp;E, SCE, and SDGE?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-5" hidden>
+              <p>PG&amp;E, SCE, and SDG&amp;E are the three primary California Investor Owned Utilities (IOUs) that manage the Pacific Gas &amp; Electric, Southern California Edison, and San Diego Gas &amp; Electric service territories.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -202,16 +205,14 @@
       <div class="footer-content">
         <div class="footer-copyright">© <span id="year"></span> Sunlight Ledger</div>
         <div class="footer-links">
-          <a href="dashboard/">Dashboard</a>
+          <a href="https://awassada-viz.d333yqz919g9ej.amplifyapp.com/" target="_blank" rel="noreferrer">Dashboard</a>
+          <a href="data-hub/">Data</a>
           <a href="our-team/">Team</a>
-          <a href="#sources">Sources</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Mapbox GL JS -->
-  <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>

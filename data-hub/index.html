@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Sunlight Ledger data: sources, documentation, and headline metrics." />
+  <title>Data | Sunlight Ledger</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <!-- TOP NAV (same as home) -->
+  <header class="site-header" id="navbar">
+    <div class="nav-container">
+      <!-- Brand -->
+      <a class="nav-brand" href="../" aria-label="Sunlight Ledger home">
+        <img class="brand-logo" src="../assets/AR.png" alt="Sunlight Ledger logo" />
+      </a>
+
+      <!-- Links -->
+      <nav class="nav-links" aria-label="Primary">
+        <a href="https://awassada-viz.d333yqz919g9ej.amplifyapp.com/" target="_blank" rel="noreferrer">Dashboard</a>
+        <a href="./" aria-current="page">Data</a>
+        <a href="../our-team/">Team</a>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <div class="nav-actions">
+        <button
+          class="btn-mobile-menu"
+          id="menuBtn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobileNav"
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile nav -->
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <a href="../dashboard/">Dashboard</a>
+      <a href="./" aria-current="page">Data</a>
+      <a href="../our-team/">Team</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- PAGE HEADER -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Data you can actually cite</h2>
+          <p class="section-lead">
+            Download the core dataset, and review documentation for structure and provenance.
+          </p>
+        </div>
+
+        <div class="sources-grid">
+          <div class="source-card">
+            <h3>Solar Installation Data</h3>
+            <p>
+              Comprehensive dataset tracking solar installations, capacity, and subsidy distribution by ZIP code and census tract.
+            </p>
+            <a class="btn btn-secondary btn-small" href="../data/solar.csv" download>Download CSV</a>
+          </div>
+
+          <div class="source-card">
+            <h3>Data Architecture</h3>
+            <p>
+              Documentation of data structure, relationships, and methodology for reproducible analysis.
+            </p>
+            <a class="btn btn-secondary btn-small" href="../data/Data_architect.pdf" target="_blank" rel="noreferrer">View PDF</a>
+          </div>
+
+          <div class="source-card">
+            <h3>Data Sources</h3>
+            <p>
+              Complete list of primary sources, collection methods, and attribution for all datasets.
+            </p>
+            <a class="btn btn-secondary btn-small" href="../data/Data_source.pdf" target="_blank" rel="noreferrer">View PDF</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- METRICS (below) -->
+    <section class="metrics-section">
+      <div class="container">
+        <div class="section-header" style="margin-bottom: 22px;">
+          <h2>Headline numbers</h2>
+          <p class="section-lead">
+            These are the core totals we surface on the site. (We can wire them to live data later.)
+          </p>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value" id="metricCapacity">7.3 GW</div>
+            <div class="metric-label">Total residential solar capacity added</div>
+            <div class="metric-description">Installed residential PV capacity across California (2015–2025)</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-value" id="metricIncentive">$33.5B</div>
+            <div class="metric-label">Total residential solar system cost</div>
+            <div class="metric-description">Sum of reported system costs across California (2015–2025)</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-value" id="metricInstallations">2015–2025</div>
+            <div class="metric-label">Data coverage period</div>
+            <div class="metric-description">California Distributed Generation Statistics (DGStats)</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-value">30.5 MW</div>
+            <div class="metric-label">Low-income programme solar capacity added</div>
+            <div class="metric-description">Installed capacity recorded in SASH/MASH/DAC-SASH (2015–2025)</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-value">$160M</div>
+            <div class="metric-label">Low-income programme system cost</div>
+            <div class="metric-description">Sum of reported system costs in programme records (2015–2025)</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-value">$95M</div>
+            <div class="metric-label">Incentives paid (low-income programmes)</div>
+            <div class="metric-description">Total subsidy dollars distributed through SASH/MASH/DAC-SASH (2015–2025)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-copyright">© <span id="year"></span> Sunlight Ledger</div>
+        <div class="footer-links">
+          <a href="https://awassada-viz.d333yqz919g9ej.amplifyapp.com/" target="_blank" rel="noreferrer">Dashboard</a>
+          <a href="./">Data</a>
+          <a href="../our-team/">Team</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js" defer></script>
+</body>
+</html>

@@ -3,178 +3,133 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="The team behind Sunlight Ledger." />
-  <title>Team — Sunlight Ledger</title>
+  <meta name="description" content="Team | Sunlight Ledger" />
+  <title>Team | Sunlight Ledger</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="../style.css" />
 </head>
 
 <body>
-  <header class="site-header">
-    <div class="container-wide">
-      <div class="nav">
-        <a class="brand" href="../" aria-label="Home">
-          <span class="brand-mark" aria-hidden="true"></span>
-          <span>
-            <span class="brand-name">Sunlight Ledger</span>
-            <span class="brand-sub">Subsidies • Capacity • Equity</span>
-          </span>
-        </a>
+  <!-- TOP NAV (canonical) -->
+  <header class="site-header" id="navbar">
+    <div class="nav-container">
+      <a class="nav-brand" href="../" aria-label="Sunlight Ledger home">
+        <img class="brand-logo" src="../assets/AR.png" alt="Sunlight Ledger logo" />
+      </a>
 
-        <nav class="nav-links" aria-label="Primary">
-          <a href="../faq.html">FAQ</a>
-          <a href="../index.html#method">Method</a>
-          <a href="../sources.html">Sources</a>
-        </nav>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="https://awassada-viz.d333yqz919g9ej.amplifyapp.com/" target="_blank" rel="noreferrer">Dashboard</a>
+        <a href="../data-hub/">Data</a>
+        <a href="./" aria-current="page">Team</a>
+      </nav>
 
-        <div class="nav-cta">
-          <a class="btn" href="./">About</a>
-          <a class="btn btn-primary" href="../dashboard/">Open dashboard →</a>
-
-          <button class="btn nav-menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav">
-            Menu
-          </button>
-        </div>
-
-        <div class="mobile-nav" id="mobileNav" hidden>
-          <a href="../faq.html">FAQ</a>
-          <a href="../index.html#method">Method</a>
-          <a href="../sources.html">Sources</a>
-        </div>
+      <div class="nav-actions">
+        <button
+          class="btn-mobile-menu"
+          id="menuBtn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobileNav"
+          aria-label="Toggle menu"
+        >
+          <span></span><span></span><span></span>
+        </button>
       </div>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <a href="https://awassada-viz.d333yqz919g9ej.amplifyapp.com/" target="_blank" rel="noreferrer">Dashboard</a>
+      <a href="../data-hub/">Data</a>
+      <a href="./" aria-current="page">Team</a>
     </div>
   </header>
 
   <main>
-    <section class="page-hero">
-      <div class="container-wide">
-        <div class="page-hero-frame">
-          <div class="page-hero-inner">
-            <div class="kicker">
-              <span class="kicker-dot" aria-hidden="true"></span>
-              Partnership
-            </div>
-
-            <h1 class="page-title">Team</h1>
-            <p class="page-lead">
-              We build sourceable, reproducible views of where solar support lands — designed for scrutiny by journalists,
-              watchdogs, and policymakers.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" style="padding-top: 10px;">
+    <section class="section">
       <div class="container">
-        <div class="team-grid">
-          <article class="member-card">
-            <div class="member-top">
-              <div class="member-avatar" aria-hidden="true">AR</div>
-              <div class="member-meta">
-                <h2 class="member-name">Member Name</h2>
-                <div class="member-role">Co-founder • Policy & Research</div>
-              </div>
-            </div>
-
-            <p class="member-bio">
-              Focused on programme design, distributional analysis, and making public data usable in real decisions.
-            </p>
-
-            <div class="member-tags" aria-label="Specialisms">
-              <span class="tag">Public finance</span>
-              <span class="tag">Energy policy</span>
-              <span class="tag">Methods</span>
-            </div>
-
-            <div class="member-links">
-              <a class="link" href="#">LinkedIn</a>
-              <span class="dot">•</span>
-              <a class="link" href="#">Email</a>
-            </div>
-          </article>
-
-          <article class="member-card">
-            <div class="member-top">
-              <div class="member-avatar" aria-hidden="true">BM</div>
-              <div class="member-meta">
-                <h2 class="member-name">Member Name</h2>
-                <div class="member-role">Co-founder • Data & Engineering</div>
-              </div>
-            </div>
-
-            <p class="member-bio">
-              Builds the pipeline and front-end: clean joins, clear definitions, and fast interactive visualisation with an audit trail.
-            </p>
-
-            <div class="member-tags" aria-label="Specialisms">
-              <span class="tag">Data engineering</span>
-              <span class="tag">D3</span>
-              <span class="tag">Mapping</span>
-            </div>
-
-            <div class="member-links">
-              <a class="link" href="#">GitHub</a>
-              <span class="dot">•</span>
-              <a class="link" href="#">Email</a>
-            </div>
-          </article>
-
-          <article class="member-card">
-              <div class="member-top">
-              <img class="member-avatar-img" src="../assets/Picture_fro_webpage.jpg" alt="Nurym Ayazbayev">
-              <div class="member-meta">
-                <h2 class="member-name">Nurym Ayazbayev</h2>
-                <div class="member-role">MC/MPA HKS Student</div>
-              </div>
-            </div>
-
-            <p class="member-bio">
-              Nurym is an MC/MPA student at Harvard Kennedy School. He holds an MBA in International Business from Ajou University (South Korea), a Bachelor of Arts (B.A.) in International Economics from KazEU, and a Bachelor of Laws (LL.B.) from M. Narikbayev KazGUU University (Kazakhstan).<br>
-              Throughout his career, he has held various roles within the Government of Kazakhstan and multilateral financial institutions, including the Asian Development Bank (ADB), the Asian Infrastructure Investment Bank (AIIB), and the Eurasian Development Bank (EDB). His professional experience spans investment policy development, public–private partnerships, budget investments, financial sector development, economic development and trade, state budget planning, and cooperation with international financial institutions.
-            </p>
-
-            <div class="member-links">
-              <a class="link" href="https://www.linkedin.com/in/nurym-ayazbayev-596a73332/">LinkedIn</a>
-              <span class="dot">•</span>
-              <a class="link" href="mailto:nurym_ayazbayev@hks.harvard.edu">nurym_ayazbayev@hks.harvard.edu</a>
-            </div>
-
-            <div class="member-tags" aria-label="Specialisms">
-              <span class="tag">Development Finance</span>
-              <span class="tag">Public Policy</span>
-              <span class="tag">Partnerships</span>
-            </div>
-          </article>
+        <div class="section-header">
+          <h2>Team</h2>
+          <p class="section-lead">
+            We build sourceable, reproducible views of where solar support lands — designed for scrutiny by journalists,
+            watchdogs, and policymakers.
+          </p>
         </div>
 
-        <div class="cta">
-          <div class="copy">
-            <h3>Contact</h3>
-            <p>For press, data questions, or collaboration, reach out — we aim to respond quickly and concretely.</p>
-          </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <a class="btn btn-primary" href="#">Email the team →</a>
-            <a class="btn" href="../dashboard/">View dashboard</a>
-          </div>
+        <div class="team-grid">
+          <article class="team-card">
+            <div class="team-photo">
+              <img src="../assets/Picture_fro_webpage.jpg" alt="Team member photo" />
+            </div>
+
+            <div class="team-body">
+              <h3 class="team-name">Member Name</h3>
+              <div class="team-role">Co-founder · Policy &amp; Research</div>
+              <p class="team-bio">
+                Focused on programme design, distributional analysis, and making public data usable in real decisions.
+              </p>
+
+              <div class="team-links">
+                <a class="btn btn-secondary btn-small" href="#">LinkedIn</a>
+                <a class="btn btn-secondary btn-small" href="#">Email</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="team-card">
+            <div class="team-photo">
+              <img src="../assets/Picture_fro_webpage.jpg" alt="Team member photo" />
+            </div>
+
+            <div class="team-body">
+              <h3 class="team-name">Member Name</h3>
+              <div class="team-role">Co-founder · Data &amp; Engineering</div>
+              <p class="team-bio">
+                Builds the pipeline and front-end: clean joins, clear definitions, and fast interactive visualisation with an audit trail.
+              </p>
+
+              <div class="team-links">
+                <a class="btn btn-secondary btn-small" href="#">LinkedIn</a>
+                <a class="btn btn-secondary btn-small" href="#">Email</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="team-card">
+            <div class="team-photo">
+              <img src="../assets/Picture_fro_webpage.jpg" alt="Team member photo" />
+            </div>
+
+            <div class="team-body">
+              <h3 class="team-name">Member Name</h3>
+              <div class="team-role">Research · Partnerships</div>
+              <p class="team-bio">
+                Supports documentation, QA, and external-facing narratives that make the numbers usable and citeable.
+              </p>
+
+              <div class="team-links">
+                <a class="btn btn-secondary btn-small" href="#">LinkedIn</a>
+                <a class="btn btn-secondary btn-small" href="#">Email</a>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container-wide">
-      <div class="footer-row">
-        <span>© <span id="year"></span> Sunlight Ledger</span>
-        <span style="display:flex; gap:14px; flex-wrap:wrap;">
-          <a href="../dashboard/">Dashboard</a>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-copyright">© <span id="year"></span> Sunlight Ledger</div>
+        <div class="footer-links">
+          <a href="https://awassada-viz.d333yqz919g9ej.amplifyapp.com/" target="_blank" rel="noreferrer">Dashboard</a>
+          <a href="../data-hub/">Data</a>
           <a href="./">Team</a>
-          <a href="../#sources">Sources</a>
-        </span>
+        </div>
       </div>
     </div>
   </footer>

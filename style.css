@@ -1,5 +1,5 @@
 /* =========================================================
-   Sunlight Ledger — Canonical Styles (Landing + Nav)
+   Sunlight Ledger — Canonical Styles (Landing + Pages)
    ========================================================= */
 
 /* -------------------------
@@ -24,6 +24,11 @@
   --nav-h: 76px;
 
   --scale-subtle: 1.04; /* Apple-ish but restrained */
+
+  /* Page rhythm (NEW) */
+  --section-pad-y: 64px;          /* was 96px */
+  --section-pad-y-tight: 38px;    /* for stacked sections like Data page */
+  --section-gap: 26px;            /* gap between header and grid */
 }
 
 /* -------------------------
@@ -121,7 +126,7 @@ img {
   height: var(--nav-h);
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Logo far left, everything else far right */
+  justify-content: space-between;
   gap: 18px;
 }
 
@@ -130,11 +135,31 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: calc(var(--nav-h) - 18px); /* whitespace above/below */
+  height: calc(var(--nav-h) - 18px);
   padding: 6px 6px;
   border-radius: 12px;
   transition: transform 180ms var(--ease), background 180ms var(--ease);
   will-change: transform;
+}
+
+/* Logo size */
+.brand-logo {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+}
+
+.nav-brand:hover {
+  transform: scale(var(--scale-subtle));
+  background: rgba(15, 23, 42, 0.03);
+}
+
+/* Right: links */
+.nav-links {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Logo size (bigger, still proportional, never stretched) */
@@ -210,7 +235,7 @@ img {
   background: rgba(15, 23, 42, 0.86);
 }
 
-/* Mobile nav should never show on desktop */
+/* Mobile nav */
 .mobile-nav {
   display: none;
   padding: 14px var(--container-pad) 18px var(--container-pad);
@@ -223,7 +248,7 @@ img {
 }
 
 /* -------------------------
-   HERO
+   HERO (home only)
 ------------------------- */
 .hero {
   position: relative;
@@ -234,7 +259,7 @@ img {
 .hero-map {
   position: absolute;
   inset: 0;
-  background: #eaeaea; /* fallback */
+  background: #eaeaea;
 }
 
 .hero-overlay {
@@ -318,35 +343,69 @@ img {
 }
 
 /* -------------------------
-   SECTIONS
+   Sections (global)
 ------------------------- */
 .section {
-  padding: 96px 0;
+  padding: var(--section-pad-y) 0;
 }
 
+/* Used implicitly: the first section after nav needs less top space */
+main > .section:first-child {
+  padding-top: 44px; /* reduces gap from navbar to first headline */
+}
+
+/* Headings smaller + tighter */
 .section-header h2 {
-  margin: 0 0 14px 0;
-  font-size: 40px;
-  line-height: 1.15;
+  margin: 0 0 10px 0;
+  font-size: 32px;     /* was 40px */
+  line-height: 1.18;
   letter-spacing: -0.02em;
 }
 
 .section-lead {
   margin: 0;
   max-width: 820px;
-  font-size: 18px;
+  font-size: 16px;     /* slightly smaller */
   color: rgba(15, 23, 42, 0.70);
 }
 
-.section-lead em {
-  font-style: italic;
+/* Make stacked sections (like Data page) not feel far apart */
+.section + .metrics-section {
+  padding-top: 24px; /* reduces huge gap between Data cards and metrics */
 }
 
 /* -------------------------
-   METRICS
+   Cards / Grids
+------------------------- */
+.sources-grid {
+  margin-top: var(--section-gap);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.source-card {
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(250, 249, 247, 0.80);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+}
+
+.source-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+}
+
+.source-card p {
+  margin: 0 0 14px 0;
+  color: rgba(15, 23, 42, 0.70);
+}
+
+/* -------------------------
+   Metrics
 ------------------------- */
 .metrics-section {
-  padding: 72px 0 24px 0;
+  padding: 40px 0 54px 0; /* tighter */
 }
 
 .metrics-grid {
@@ -383,10 +442,10 @@ img {
 }
 
 /* -------------------------
-   FEATURES
+   Features (home)
 ------------------------- */
 .features-grid {
-  margin-top: 34px;
+  margin-top: var(--section-gap);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
@@ -411,34 +470,41 @@ img {
 }
 
 /* -------------------------
-   SOURCES
+   FAQ (home)
 ------------------------- */
-.sources-grid {
-  margin-top: 32px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.faq-list {
+  margin-top: 22px;
+  border-top: 1px solid rgba(15, 23, 42, 0.10);
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(15, 23, 42, 0.10);
+  padding: 16px 0;
+}
+
+.faq-question {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 18px;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(15, 23, 42, 0.92);
 }
 
-.source-card {
-  border: 1px solid rgba(15, 23, 42, 0.10);
-  background: rgba(250, 249, 247, 0.80);
-  border-radius: var(--radius-lg);
-  padding: 22px 20px;
-}
-
-.source-card h3 {
-  margin: 0 0 10px 0;
-  font-size: 18px;
-}
-
-.source-card p {
-  margin: 0 0 14px 0;
-  color: rgba(15, 23, 42, 0.70);
+.faq-answer {
+  padding-top: 10px;
+  color: rgba(15, 23, 42, 0.72);
 }
 
 /* -------------------------
-   FOOTER
+   Footer
 ------------------------- */
 .footer {
   padding: 44px 0;
@@ -470,12 +536,12 @@ img {
 }
 
 /* -------------------------
-   RESPONSIVE
+   Responsive
 ------------------------- */
 @media (max-width: 1000px) {
+  .sources-grid,
   .metrics-grid,
-  .features-grid,
-  .sources-grid {
+  .features-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -512,7 +578,227 @@ img {
     color: rgba(15, 23, 42, 0.92);
   }
 
-  .hero-inner {
-    padding-top: 92px;
+  .section-header h2 {
+    font-size: 28px;
+  }
+
+  main > .section:first-child {
+    padding-top: 34px;
+  }
+}
+/* -------------------------
+   TEAM (Bain-style cards)
+------------------------- */
+.team-grid {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.team-card {
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(250, 249, 247, 0.80);
+  border-radius: var(--radius-lg);
+  padding: 16px 16px 18px 16px;
+}
+
+.team-photo {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(15, 23, 42, 0.02);
+}
+
+.team-photo img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.team-body {
+  padding-top: 14px;
+}
+
+.team-name {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.team-role {
+  margin-top: 6px;
+  font-size: 16px;
+  color: rgba(15, 23, 42, 0.70);
+}
+
+.team-bio {
+  margin: 12px 0 0 0;
+  font-size: 14px;
+  color: rgba(15, 23, 42, 0.72);
+  line-height: 1.6;
+}
+
+.team-links {
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1000px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-photo img {
+    height: 260px;
+  }
+}
+/* =========================================================
+   HOME HERO (Bain-style split + collage)
+   Paste at END of style.css
+   ========================================================= */
+
+.hero-split {
+  padding: 52px 0 54px 0; /* controls space under sticky nav */
+}
+
+.hero-split-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 44px;
+  align-items: center;
+}
+
+.hero-left {
+  max-width: 620px;
+}
+
+.hero-split-title {
+  margin: 0 0 18px 0;
+  font-size: clamp(44px, 5vw, 64px);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+
+.hero-split-description {
+  margin: 0;
+  max-width: 520px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(15, 23, 42, 0.70);
+}
+
+/* Right-side collage container */
+.hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-collage {
+  position: relative;
+  width: min(520px, 100%);
+  aspect-ratio: 1 / 1;
+  border-radius: 26px;
+}
+
+/* Base for all collage images */
+.collage-img {
+  position: absolute;
+  border-radius: 18px;
+  overflow: hidden;
+  width: 62%;
+  height: 44%;
+  object-fit: cover;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.10);
+  background: rgba(15, 23, 42, 0.02);
+}
+
+/* Diamond-ish placement (Bain vibe) */
+.collage-a {
+  left: 38%;
+  top: 4%;
+  transform: rotate(45deg);
+  transform-origin: center;
+}
+
+.collage-b {
+  left: 10%;
+  top: 24%;
+  transform: rotate(45deg);
+  transform-origin: center;
+}
+
+.collage-c {
+  left: 38%;
+  top: 44%;
+  transform: rotate(45deg);
+  transform-origin: center;
+}
+
+.collage-d {
+  left: 66%;
+  top: 24%;
+  transform: rotate(45deg);
+  transform-origin: center;
+}
+
+/* Subtle hover polish (optional but feels premium) */
+.hero-collage .collage-img {
+  transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
+  will-change: transform;
+}
+
+.hero-collage .collage-img:hover {
+  transform: rotate(45deg) scale(1.03);
+  box-shadow: 0 22px 54px rgba(15, 23, 42, 0.14);
+}
+
+/* Make collage look clean on smaller screens */
+@media (max-width: 980px) {
+  .hero-split {
+    padding: 38px 0 44px 0;
+  }
+
+  .hero-split-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .hero-left {
+    max-width: 720px;
+  }
+
+  .hero-right {
+    justify-content: flex-start;
+  }
+
+  .hero-collage {
+    width: min(460px, 100%);
+  }
+
+  .collage-img {
+    width: 64%;
+    height: 46%;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-split-title {
+    font-size: 40px;
+  }
+
+  .hero-split-description {
+    font-size: 16px;
+  }
+
+  .hero-collage {
+    width: 100%;
   }
 }
