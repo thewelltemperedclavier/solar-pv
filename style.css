@@ -1,3 +1,14 @@
+/* Sticky fallback for JS */
+.site-header.is-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border-bottom: 1px solid var(--border-color);
+}
 /* style.css - Minimal Premium Portfolio Design */
 
 /* ============================================
@@ -112,7 +123,7 @@ img {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -580,6 +591,7 @@ img {
   line-height: 1.6;
 }
 
+/* Sticky navigation bar handled by .site-header only */
 .section-lead em {
   font-style: italic;
   color: var(--text-primary);
@@ -672,13 +684,7 @@ img {
 
 .faq-list {
   max-width: 800px;
-  margin: 0 auto;
-}
-
-.faq-item {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+/* Sticky navigation bar handled by .site-header only */
   margin-bottom: var(--space-sm);
   overflow: hidden;
   transition: all 0.2s ease;

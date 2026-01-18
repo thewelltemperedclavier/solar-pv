@@ -4,6 +4,20 @@
   'use strict';
 
   // ============================================
+  // STICKY NAVBAR JS FALLBACK
+  // ============================================
+  const siteHeader = document.querySelector('.site-header');
+  if (siteHeader) {
+    const stickyClass = 'is-sticky';
+    const origOffset = siteHeader.offsetTop;
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > origOffset) {
+        siteHeader.classList.add(stickyClass);
+      } else {
+        siteHeader.classList.remove(stickyClass);
+      }
+    });
+  }
   // FOOTER YEAR
   // ============================================
   const yearEl = document.getElementById('year');
