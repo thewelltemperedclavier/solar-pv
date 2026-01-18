@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  
+
   <!-- Mapbox GL CSS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
 
@@ -20,34 +20,42 @@
   <!-- TOP NAV -->
   <header class="site-header" id="navbar">
     <div class="nav-container">
-      <div class="nav-brand">
-        <a href="./" aria-label="Home">
-          <span class="brand-name">Sunlight Ledger</span>
-          <span class="brand-subtitle">Transparency project</span>
-        </a>
-      </div>
+      <!-- Brand (logo all the way left) -->
+      <a class="nav-brand" href="./" aria-label="Sunlight Ledger home">
+        <img class="brand-logo" src="assets/AR.png" alt="Sunlight Ledger logo" />
+      </a>
 
+      <!-- Links (all the way right) -->
       <nav class="nav-links" aria-label="Primary">
         <a href="faq.html">FAQ</a>
         <a href="#method">Method</a>
-        <a href="sources.html">Sources</a>
+        <a href="#sources">Sources</a>
+        <a href="our-team/">Team</a>
       </nav>
 
+      <!-- Mobile menu button (only appears on mobile via CSS) -->
       <div class="nav-actions">
-        <a class="btn btn-secondary" href="#team">Team</a>
-        
-        <button class="btn-mobile-menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Toggle menu">
+        <button
+          class="btn-mobile-menu"
+          id="menuBtn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobileNav"
+          aria-label="Toggle menu"
+        >
           <span></span>
           <span></span>
           <span></span>
         </button>
       </div>
+    </div>
 
-      <div class="mobile-nav" id="mobileNav" hidden>
-        <a href="#method">Method</a>
-        <a href="sources.html">Sources</a>
-        <a href="#team">Team</a>
-      </div>
+    <!-- Mobile nav -->
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <a href="dashboard/">Dashboard</a>
+      <a href="#method">Method</a>
+      <a href="#sources">Sources</a>
+      <a href="our-team/">Team</a>
     </div>
   </header>
 
@@ -67,6 +75,7 @@
           <div class="hero-actions">
             <a class="btn btn-secondary" href="#method">Transparency at ZIP level</a>
           </div>
+
           <div class="hero-chips">
             <div class="chip">
               <span class="chip-label">Granularity:</span>
@@ -84,7 +93,6 @@
         </div>
       </div>
     </section>
-
 
     <!-- KEY METRICS SECTION -->
     <section class="metrics-section">
@@ -150,15 +158,11 @@
           </div>
           <div class="feature-card">
             <h3>Designed for scrutiny</h3>
-            <p>
-              Definitions, assumptions, and caveats are first-class UI — not hidden in a PDF appendix.
-            </p>
+            <p>Definitions, assumptions, and caveats are first-class UI — not hidden in a PDF appendix.</p>
           </div>
           <div class="feature-card">
             <h3>Built for embedding</h3>
-            <p>
-              Shareable views for newsrooms and briefings — and stable links you can cite.
-            </p>
+            <p>Shareable views for newsrooms and briefings — and stable links you can cite.</p>
           </div>
         </div>
       </div>
@@ -180,55 +184,16 @@
           <div class="source-card">
             <h3>Data Architecture</h3>
             <p>Documentation of data structure, relationships, and methodology for reproducible analysis.</p>
-            <a class="btn btn-secondary btn-small" href="data/Data_architect.pdf" target="_blank">View PDF</a>
+            <a class="btn btn-secondary btn-small" href="data/Data_architect.pdf" target="_blank" rel="noreferrer">View PDF</a>
           </div>
           <div class="source-card">
             <h3>Data Sources</h3>
             <p>Complete list of primary sources, collection methods, and attribution for all datasets.</p>
-            <a class="btn btn-secondary btn-small" href="data/Data_source.pdf" target="_blank">View PDF</a>
+            <a class="btn btn-secondary btn-small" href="data/Data_source.pdf" target="_blank" rel="noreferrer">View PDF</a>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- TEAM SECTION -->
-    <section class="section team-section" id="team">
-      <div class="container">
-        <div class="section-header">
-          <h2>Team</h2>
-        </div>
-
-        <div class="team-grid">
-          <div class="team-card">
-            <div class="team-placeholder" aria-hidden="true">
-              <span class="team-placeholder-dot"></span>
-            </div>
-            <h3 class="team-card-title">Team member</h3>
-            <div class="team-role">Data</div>
-            <p class="team-description">Responsible for data collection, processing, and ensuring accuracy of all datasets.</p>
-          </div>
-
-          <div class="team-card">
-            <div class="team-placeholder" aria-hidden="true">
-              <span class="team-placeholder-dot"></span>
-            </div>
-            <h3 class="team-card-title">Team member</h3>
-            <div class="team-role">Design</div>
-            <p class="team-description">Creates clear, accessible interfaces that make complex data understandable.</p>
-          </div>
-
-          <div class="team-card">
-            <img src="assets/Picture_fro_webpage.jpg" alt="Nurym Ayazbayev" style="width: 75%; border-radius: 8px; margin-bottom: 12px; margin-left: auto; margin-right: auto; display: block;">
-            <h3 class="team-card-title">Nurym Ayazbayev</h3>
-            <div class="team-role">MC/MPA HKS Student</div>
-            <p class="team-description">Nurym is an MC/MPA student at Harvard Kennedy School with professional experience in the Government of Kazakhstan and at multilateral institutions including ADB, AIIB, and EDB. He holds an MBA in International Business, a B.A. in International Economics, and an LL.B. His interests focus on development finance, global governance, and public policy development.</p>
-            <p style="margin-top: 16px;"><a href="mailto:nurym_ayazbayev@hks.harvard.edu">nurym_ayazbayev@hks.harvard.edu</a></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ SECTION -->
   </main>
 
   <!-- FOOTER -->
@@ -238,7 +203,7 @@
         <div class="footer-copyright">© <span id="year"></span> Sunlight Ledger</div>
         <div class="footer-links">
           <a href="dashboard/">Dashboard</a>
-          <a href="#team">Team</a>
+          <a href="our-team/">Team</a>
           <a href="#sources">Sources</a>
         </div>
       </div>
