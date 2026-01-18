@@ -12,52 +12,54 @@
 /* style.css - Minimal Premium Portfolio Design */
 
 /* ============================================
-   DESIGN TOKENS
+   DESIGN TOKENS (SHARPENED)
    ============================================ */
 :root {
   /* Colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #fafafa;
-  --text-primary: #0a0a0a;
-  --text-secondary: #6b6b6b;
-  --text-muted: #9a9a9a;
-  --border-color: rgba(10, 10, 10, 0.08);
-  --border-hover: rgba(10, 10, 10, 0.12);
-  
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --text-muted: #a1a1aa;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --border-color: #e5e7eb;
+  --border-hover: #cbd5e1;
+
   /* Spacing */
-  --space-xs: 8px;
-  --space-sm: 16px;
-  --space-md: 24px;
-  --space-lg: 48px;
-  --space-xl: 80px;
-  --space-2xl: 120px;
-  
+  --space-xs: 6px;
+  --space-sm: 12px;
+  --space-md: 20px;
+  --space-lg: 40px;
+  --space-xl: 72px;
+  --space-2xl: 112px;
+
   /* Border Radius */
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
   --radius-pill: 999px;
-  
+
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(10, 10, 10, 0.04);
-  --shadow-md: 0 4px 12px rgba(10, 10, 10, 0.06);
-  --shadow-lg: 0 8px 24px rgba(10, 10, 10, 0.08);
-  --shadow-hover: 0 12px 32px rgba(10, 10, 10, 0.12);
-  
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08);
+  --shadow-lg: 0 8px 24px rgba(16, 24, 40, 0.12);
+  --shadow-hover: 0 12px 32px rgba(16, 24, 40, 0.16);
+
   /* Typography */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-size-xs: 12px;
-  --font-size-sm: 14px;
-  --font-size-base: 16px;
-  --font-size-lg: 18px;
-  --font-size-xl: 24px;
-  --font-size-2xl: 32px;
-  --font-size-3xl: 48px;
-  --font-size-4xl: 64px;
-  
+  --font-size-xs: 13px;
+  --font-size-sm: 15px;
+  --font-size-base: 17px;
+  --font-size-lg: 20px;
+  --font-size-xl: 28px;
+  --font-size-2xl: 36px;
+  --font-size-3xl: 52px;
+  --font-size-4xl: 72px;
+
   /* Container */
   --container-width: 1200px;
-  --container-padding: clamp(24px, 4vw, 48px);
+  --container-padding: clamp(20px, 4vw, 40px);
 }
 
 /* ============================================
@@ -149,10 +151,11 @@ img {
 }
 
 .brand-name {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-xl);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  color: var(--accent);
+  text-shadow: 0 1px 0 #fff, 0 2px 8px rgba(37,99,235,0.08);
 }
 
 .brand-subtitle {
@@ -170,15 +173,32 @@ img {
 }
 
 .nav-links a {
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-sm);
-  transition: color 0.2s ease;
-}
-
-.nav-links a:hover {
   color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: var(--space-lg);
+  font-size: var(--font-size-lg);
+  transition: color 0.15s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.2s;
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+}
+.nav-links a:hover,
+.nav-links a:focus {
+  color: var(--accent);
+}
+.nav-links a:hover::after,
+.nav-links a:focus::after {
+  width: 100%;
 }
 
 .nav-actions {
@@ -189,94 +209,89 @@ img {
 
 .btn-mobile-menu {
   display: none;
-  flex-direction: column;
-  gap: 4px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: var(--space-xs);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
 }
-
 .btn-mobile-menu span {
-  width: 20px;
-  height: 2px;
+  display: block;
+  width: 28px;
+  height: 3px;
   background: var(--text-primary);
+  margin: 4px 0;
   border-radius: 2px;
-  transition: all 0.2s ease;
+  transition: background 0.2s;
 }
 
 .mobile-nav {
-  display: none;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 100%;
-  left: 0;
   right: 0;
-  background: var(--bg-primary);
-  border-bottom: 1px solid var(--border-color);
-  padding: var(--space-sm) var(--container-padding);
-  flex-direction: column;
-  gap: var(--space-xs);
-}
-
-.mobile-nav a {
-  padding: var(--space-sm);
-  color: var(--text-secondary);
-  border-radius: var(--radius-sm);
-}
-
-.mobile-nav a:hover {
-  color: var(--text-primary);
   background: var(--bg-secondary);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-lg);
+  min-width: 200px;
+  padding: var(--space-md) 0;
+  z-index: 100;
 }
-
 .mobile-nav[hidden] {
   display: none;
+}
+.mobile-nav a {
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: var(--space-md) var(--space-xl);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s;
+}
+.mobile-nav a:hover, .mobile-nav a:focus {
+  background: var(--bg-primary);
+  color: var(--accent);
 }
 
 /* ============================================
    BUTTONS
    ============================================ */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 24px;
-  font-size: var(--font-size-sm);
-  font-weight: 500;
+.btn, .btn-primary, .btn-secondary {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-lg);
   border-radius: var(--radius-pill);
-  border: 1px solid var(--border-color);
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  text-decoration: none;
+  border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  min-height: 44px;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  box-shadow: var(--shadow-sm);
 }
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-hover);
-  border-color: var(--border-hover);
-}
-
-.btn:active {
-  transform: translateY(0);
-}
-
 .btn-primary {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-  border-color: var(--text-primary);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: var(--shadow-md);
 }
-
-.btn-primary:hover {
-  background: var(--text-primary);
-  opacity: 0.9;
+.btn-primary:hover, .btn-primary:focus {
+  background: var(--accent-hover);
+  color: #fff;
+  box-shadow: var(--shadow-lg);
 }
-
 .btn-secondary {
-  background: transparent;
-  color: var(--text-primary);
+  background: #fff;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+}
+.btn-secondary:hover, .btn-secondary:focus {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent-hover);
 }
 
 .btn-small {
