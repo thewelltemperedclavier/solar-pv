@@ -162,6 +162,28 @@ img {
   gap: 8px;
 }
 
+/* Logo size (bigger, still proportional, never stretched) */
+.brand-logo {
+  height: 42px;  /* <<< increased to visually match nav text */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Subtle grow on hover (Apple-ish) */
+.nav-brand:hover {
+  transform: scale(var(--scale-subtle));
+  background: rgba(15, 23, 42, 0.03);
+}
+
+/* Right: links */
+.nav-links {
+  margin-left: auto; /* pushes links to the right */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Bain-ish link style */
 .nav-links a {
   font-size: 13px;
   font-weight: 500;
@@ -186,6 +208,7 @@ img {
   gap: 12px;
 }
 
+/* Mobile menu button */
 .btn-mobile-menu {
   display: none;
   width: 44px;
