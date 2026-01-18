@@ -10,9 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Mapbox GL CSS -->
-  <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
-
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -20,14 +17,14 @@
   <!-- TOP NAV -->
   <header class="site-header" id="navbar">
     <div class="nav-container">
-      <!-- Brand (logo all the way left) -->
+      <!-- Brand -->
       <a class="nav-brand" href="./" aria-label="Sunlight Ledger home">
         <img class="brand-logo" src="assets/AR.png" alt="Sunlight Ledger logo" />
       </a>
 
-      <!-- Links (all the way right) -->
+      <!-- Links -->
       <nav class="nav-links" aria-label="Primary">
-        <a href="dashboard/">Dashboard</a>
+        <a href="https://awassada-viz.d333yqz919g9ej.amplifyapp.com/" target="_blank" rel="noreferrer">Dashboard</a>
         <a href="data-hub/">Data</a>
         <a href="our-team/">Team</a>
       </nav>
@@ -42,50 +39,52 @@
           aria-controls="mobileNav"
           aria-label="Toggle menu"
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span><span></span><span></span>
         </button>
       </div>
     </div>
 
     <!-- Mobile nav -->
     <div class="mobile-nav" id="mobileNav" hidden>
-      <a href="dashboard/">Dashboard</a>
+      <a href="https://awassada-viz.d333yqz919g9ej.amplifyapp.com/" target="_blank" rel="noreferrer">Dashboard</a>
       <a href="data-hub/">Data</a>
       <a href="our-team/">Team</a>
     </div>
   </header>
 
   <main>
-    <!-- HERO SECTION WITH MAPBOX -->
-    <section class="hero">
-      <div class="hero-map" id="heroMap"></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-inner">
-          <div class="hero-eyebrow">A public-interest transparency project</div>
-          <h1 class="hero-title">Tracking Solar PV Systems in California</h1>
-          <p class="hero-description">
-            We map where solar capacity is being built, how subsidy dollars are distributed,
-            and what the data implies about who benefits — with an audit trail that stands up to scrutiny.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-secondary" href="data-hub/">Explore the data</a>
+    <!-- HERO (Bain-style split: text left, image collage right) -->
+    <section class="hero-split">
+      <div class="container">
+        <div class="hero-split-grid">
+          <!-- LEFT: text -->
+          <div class="hero-left">
+            <div class="hero-eyebrow">A public-interest transparency project</div>
+
+            <h1 class="hero-split-title">
+              Track subsidy flow,<br />
+              capacity build,<br />
+              and who benefits.
+            </h1>
+
+            <p class="hero-split-description">
+              We map where solar capacity is being built, how subsidy dollars are distributed,
+              and what the data implies — with an audit trail that stands up to scrutiny.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-secondary" href="data-hub/">Explore the data</a>
+            </div>
           </div>
 
-          <div class="hero-chips">
-            <div class="chip">
-              <span class="chip-label">Granularity:</span>
-              <span class="chip-value">ZIP / tract</span>
-            </div>
-            <div class="chip">
-              <span class="chip-label">Principle:</span>
-              <span class="chip-value">sourceable, linkable, reproducible</span>
-            </div>
-            <div class="chip">
-              <span class="chip-label">Use cases:</span>
-              <span class="chip-value">reporting, oversight, policy design</span>
+          <!-- RIGHT: collage -->
+          <div class="hero-right" aria-hidden="true">
+            <div class="hero-collage">
+              <!-- These are placeholders. Replace the src with your real images later. -->
+              <img class="collage-img collage-a" src="assets/background.jpg" alt="" />
+              <img class="collage-img collage-b" src="assets/background.jpg" alt="" />
+              <img class="collage-img collage-c" src="assets/background.jpg" alt="" />
+              <img class="collage-img collage-d" src="assets/background.jpg" alt="" />
             </div>
           </div>
         </div>
@@ -128,7 +127,7 @@
       </div>
     </section>
 
-    <!-- FAQ SECTION (keep here or move later) -->
+    <!-- FAQ SECTION -->
     <section class="section faq-section">
       <div class="container">
         <div class="section-header">
@@ -206,7 +205,7 @@
       <div class="footer-content">
         <div class="footer-copyright">© <span id="year"></span> Sunlight Ledger</div>
         <div class="footer-links">
-          <a href="dashboard/">Dashboard</a>
+          <a href="https://awassada-viz.d333yqz919g9ej.amplifyapp.com/" target="_blank" rel="noreferrer">Dashboard</a>
           <a href="data-hub/">Data</a>
           <a href="our-team/">Team</a>
         </div>
@@ -214,8 +213,6 @@
     </div>
   </footer>
 
-  <!-- Mapbox GL JS -->
-  <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>
