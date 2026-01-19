@@ -939,3 +939,21 @@ main > .section:first-child {
     aspect-ratio: 1 / 1;
   }
 }
+/* Hero image behaves like nav buttons on hover */
+.hero-photo-link {
+  display: inline-block;
+  border-radius: 22px; /* match .hero-photo */
+  text-decoration: none;
+  color: inherit;
+  transition: transform 180ms var(--ease), background 180ms var(--ease), box-shadow 180ms var(--ease);
+  will-change: transform;
+}
+
+.hero-photo-link:hover {
+  transform: scale(1.03);
+}
+
+.hero-photo-link:focus-visible {
+  outline: 2px solid rgba(15, 23, 42, 0.35);
+  outline-offset: 4px;
+}
