@@ -402,6 +402,75 @@ main > .section:first-child {
 }
 
 /* -------------------------
+   Download Data (Data page)
+------------------------- */
+.download-grid{
+  margin-top: var(--section-gap);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.download-card{
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(250, 249, 247, 0.80);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+}
+
+.download-top{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.download-icon{
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(15, 23, 42, 0.03);
+  display: grid;
+  place-items: center;
+  color: rgba(15, 23, 42, 0.75);
+}
+
+.download-title{
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.download-title:hover{
+  color: rgba(15, 23, 42, 0.92);
+}
+
+.download-links{
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.download-links a{
+  font-size: 14px;
+  color: rgba(15, 23, 42, 0.74);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.download-links a:hover{
+  color: rgba(15, 23, 42, 0.92);
+}
+
+/* placeholders until you add real URLs */
+.download-placeholder{
+  opacity: 0.65;
+}
+
+/* -------------------------
    Metrics
 ------------------------- */
 .metrics-section {
@@ -607,6 +676,16 @@ main > .section:first-child {
     padding-top: 34px;
   }
 }
+@media (max-width: 1000px) {
+  .sources-grid,
+  .download-grid,
+  .metrics-grid,
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 /* -------------------------
    TEAM (Bain-style cards)
 ------------------------- */
@@ -1024,4 +1103,150 @@ main > .section:first-child {
 .tt__link {
   text-decoration: underline; /* override global a { text-decoration: none } */
   color: rgba(15, 23, 42, 0.92);
+}
+/* =========================
+   Download Data (Data page)
+   ========================= */
+
+.download-grid{
+  margin-top: var(--section-gap);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.download-card{
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(250, 249, 247, 0.80);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+}
+
+.download-top{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Bigger icon container */
+.download-icon{
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(15, 23, 42, 0.03);
+  display: grid;
+  place-items: center;
+}
+
+.download-icon-img{
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Make all text in the card the same size */
+.download-title,
+.download-links a,
+.download-placeholder{
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+/* Keep title distinct via weight only (same size) */
+.download-title{
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: rgba(15, 23, 42, 0.92);
+}
+
+.download-title:hover{
+  color: rgba(15, 23, 42, 0.92);
+}
+
+.download-links{
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.download-links a{
+  color: rgba(15, 23, 42, 0.74);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.download-links a:hover{
+  color: rgba(15, 23, 42, 0.92);
+}
+
+.download-placeholder{
+  color: rgba(15, 23, 42, 0.45);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* Download cards: icon left, content right */
+.download-card{
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(250, 249, 247, 0.80);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.download-icon{
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(15, 23, 42, 0.03);
+  display: grid;
+  place-items: center;
+}
+
+.download-icon-img{
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  display: block;
+}
+
+.download-title,
+.download-links a,
+.download-placeholder{
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.download-title{
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  display: inline-block;
+}
+
+.download-links{
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.download-links a{
+  color: rgba(15, 23, 42, 0.74);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.download-placeholder{
+  color: rgba(15, 23, 42, 0.45);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
