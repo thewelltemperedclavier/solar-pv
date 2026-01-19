@@ -457,6 +457,27 @@ main > .section:first-child {
   border-radius: var(--radius-lg);
   padding: 22px 20px;
 }
+/* Make feature cards behave like nav links on hover */
+.features-grid .feature-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 180ms var(--ease), background 180ms var(--ease), color 180ms var(--ease),
+    border-color 180ms var(--ease), box-shadow 180ms var(--ease);
+  will-change: transform;
+}
+
+.features-grid .feature-card:hover {
+  transform: scale(1.03);
+  background: rgba(15, 23, 42, 0.03);
+  border-color: rgba(15, 23, 42, 0.14);
+}
+
+.features-grid .feature-card:focus-visible {
+  outline: 2px solid rgba(15, 23, 42, 0.35);
+  outline-offset: 3px;
+}
 
 .feature-card h3 {
   margin: 0 0 8px 0;
@@ -659,12 +680,12 @@ main > .section:first-child {
   }
 }
 /* =========================================================
-   HOME HERO (Bain-style split + collage)
-   Paste at END of style.css
+   HOME HERO (Bain-style angled collage using clip-path)
+   Replace the previous collage block with this one
    ========================================================= */
 
 .hero-split {
-  padding: 52px 0 54px 0; /* controls space under sticky nav */
+  padding: 52px 0 54px 0;
 }
 
 .hero-split-grid {
@@ -693,74 +714,92 @@ main > .section:first-child {
   color: rgba(15, 23, 42, 0.70);
 }
 
-/* Right-side collage container */
+/* Right side: Bain-style collage scaffold */
 .hero-right {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: center;
 }
 
 .hero-collage {
   position: relative;
-  width: min(520px, 100%);
-  aspect-ratio: 1 / 1;
-  border-radius: 26px;
+  width: min(560px, 100%);
+  height: 420px;                 /* fixed visual height (Bain-like) */
+  margin-left: auto;
 }
 
-/* Base for all collage images */
-.collage-img {
+/* Shared “Bain diamond” treatment */
+.collage-tile {
   position: absolute;
-  border-radius: 18px;
   overflow: hidden;
-  width: 62%;
-  height: 44%;
-  object-fit: cover;
-  border: 1px solid rgba(15, 23, 42, 0.10);
-  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.10);
+  border-radius: 20px;
   background: rgba(15, 23, 42, 0.02);
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.10);
+  transform: translateZ(0);
 }
 
-/* Diamond-ish placement (Bain vibe) */
-.collage-a {
-  left: 38%;
-  top: 4%;
-  transform: rotate(45deg);
-  transform-origin: center;
+/* IMPORTANT:
+   This polygon creates the matching “cut” angles.
+   Same geometry used everywhere so the angles align. */
+.collage-tile,
+.collage-tile::before {
+  clip-path: polygon(
+    12% 0%,
+    88% 0%,
+    100% 12%,
+    100% 88%,
+    88% 100%,
+    12% 100%,
+    0% 88%,
+    0% 12%
+  );
 }
 
-.collage-b {
-  left: 10%;
-  top: 24%;
-  transform: rotate(45deg);
-  transform-origin: center;
+/* Image inside tile */
+.collage-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.collage-c {
-  left: 38%;
-  top: 44%;
-  transform: rotate(45deg);
-  transform-origin: center;
+/* Layout: big diamond + two supporting diamonds */
+.tile-main {
+  right: 0;
+  top: 0;
+  width: 420px;
+  height: 420px;
 }
 
-.collage-d {
-  left: 66%;
-  top: 24%;
-  transform: rotate(45deg);
-  transform-origin: center;
+.tile-mid {
+  right: 220px;
+  top: 120px;
+  width: 260px;
+  height: 260px;
+  opacity: 0.95;
 }
 
-/* Subtle hover polish (optional but feels premium) */
-.hero-collage .collage-img {
+.tile-strip {
+  right: 140px;
+  top: 280px;
+  width: 360px;
+  height: 170px;
+  opacity: 0.98;
+}
+
+/* Subtle premium motion on hover */
+.collage-tile {
   transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
   will-change: transform;
 }
 
-.hero-collage .collage-img:hover {
-  transform: rotate(45deg) scale(1.03);
-  box-shadow: 0 22px 54px rgba(15, 23, 42, 0.14);
+.collage-tile:hover {
+  transform: scale(1.02);
+  box-shadow: 0 28px 72px rgba(15, 23, 42, 0.14);
 }
 
-/* Make collage look clean on smaller screens */
+/* Responsive */
 @media (max-width: 980px) {
   .hero-split {
     padding: 38px 0 44px 0;
@@ -771,21 +810,34 @@ main > .section:first-child {
     gap: 30px;
   }
 
-  .hero-left {
-    max-width: 720px;
-  }
-
   .hero-right {
     justify-content: flex-start;
   }
 
   .hero-collage {
-    width: min(460px, 100%);
+    width: min(520px, 100%);
+    height: 360px;
   }
 
-  .collage-img {
-    width: 64%;
-    height: 46%;
+  .tile-main {
+    width: 360px;
+    height: 360px;
+    right: 0;
+    top: 0;
+  }
+
+  .tile-mid {
+    right: 190px;
+    top: 110px;
+    width: 220px;
+    height: 220px;
+  }
+
+  .tile-strip {
+    right: 110px;
+    top: 240px;
+    width: 320px;
+    height: 150px;
   }
 }
 
@@ -799,6 +851,91 @@ main > .section:first-child {
   }
 
   .hero-collage {
+    height: 300px;
+  }
+
+  .tile-main {
+    width: 300px;
+    height: 300px;
+  }
+
+  .tile-mid {
+    display: none; /* keep it clean on small screens */
+  }
+
+  .tile-strip {
+    right: 0;
+    top: 190px;
+    width: 300px;
+    height: 130px;
+  }
+}
+/* =========================================================
+   Bain-style interlocking collage (SVG, cross-browser)
+   ========================================================= */
+
+.hero-collage-svg {
+  width: min(600px, 100%);
+  height: auto;
+  margin-left: auto;
+}
+
+.bain-collage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* tighten vertical spacing if you want the hero to feel more “Bain” */
+.hero-split {
+  padding-top: 44px;
+  padding-bottom: 44px;
+}
+
+/* responsive: keep it clean on small screens */
+@media (max-width: 980px) {
+  .hero-collage-svg {
+    width: min(520px, 100%);
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-collage-svg {
     width: 100%;
+  }
+}
+
+/* =========================================================
+   HOME HERO — simple photo (replaces SVG collage)
+   ========================================================= */
+
+.hero-photo {
+  width: min(560px, 100%);
+  aspect-ratio: 4 / 3;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(15, 23, 42, 0.02);
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.10);
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 980px) {
+  .hero-photo {
+    width: min(520px, 100%);
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
   }
 }
