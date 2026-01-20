@@ -131,68 +131,152 @@
           <h2>Frequently asked questions</h2>
         </div>
 
-        <div class="faq-list">
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-0">
-              <span>Why does the government subsidize PV panel installation?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" id="faq-answer-0" hidden>
-              <p>Governments subsidize solar PV (photovoltaic) to accelerate the green transition, reduce pressure on energy infrastructure, and support equitable access to clean energy.</p>
-            </div>
-          </div>
+     <div class="faq-list">
+  <!-- 0 -->
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-0">
+      <span>Where is the data from?</span>
+      <span class="faq-icon" aria-hidden="true">+</span>
+    </button>
+    <div class="faq-answer" id="faq-answer-0" hidden>
+      <p>
+        The data is from DGStats. More on <a href="data-hub/">Data</a> here.
+      </p>
+    </div>
+  </div>
 
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
-              <span>What is SASH?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" id="faq-answer-1" hidden>
-              <p>The Single-family Affordable Solar Homes program (SASH 1.0 &amp; 2.0) provides solar incentives for owner-occupied, low-income households.</p>
-            </div>
-          </div>
+  <!-- 1 -->
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
+      <span>Why are some solar projects missing from the “Interconnected” file?</span>
+      <span class="faq-icon" aria-hidden="true">+</span>
+    </button>
+    <div class="faq-answer" id="faq-answer-1" hidden>
+      <p>The Interconnected dataset has been filtered to include only:</p>
+      <ul>
+        <li><strong>Interconnected</strong> (projects that have actually been installed)</li>
+        <li><strong>Residential</strong> (other sectors have been excluded)</li>
+      </ul>
 
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-              <span>What is MASH?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" id="faq-answer-2" hidden>
-              <p>The Multi-family Affordable Solar Housing program (MASH 1.0 &amp; 2.0) provides incentives for solar installations on qualifying multi-family affordable housing properties.</p>
-            </div>
-          </div>
+      <p>Furthermore:</p>
+      <ul>
+        <li>Rows with $0 or null <strong>Total System Cost</strong> and 0 kW or null <strong>System Size AC</strong> are removed.</li>
+        <li>Records with missing or unparseable <strong>App Complete Date</strong> are discarded.</li>
+        <li>Strict regex enforcement (<code>^\d{5}$</code>) removes any ZIP code that is not exactly five digits or contains alphabets/symbols.</li>
+        <li>
+          After aggregation, any ZIP × month × year group with <code>market_total_cost &lt; $50</code> is excluded (to remove rounding artifacts and clearly invalid totals).
+          Rationale: installed residential PV systems are typically priced on the order of ~$2.5–$3.3 per watt, meaning even a 1 kW system is generally ~$2,500–$3,300 before incentives.
+        </li>
+      </ul>
 
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
-              <span>What is DAC-SASH?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" id="faq-answer-3" hidden>
-              <p>The Disadvantaged Communities - Single-family Affordable Solar Homes program is the successor to SASH, specifically targeting homeowners in the top 25% most disadvantaged communities in California.</p>
-            </div>
-          </div>
+    <p>
+  Read more on
+  <a href="assets/Interconnected.pdf" target="_blank" rel="noopener noreferrer">data processing</a>
+  and
+  <a href="https://www.californiadgstats.ca.gov/static/documents/rule21/Interconnected_Project_Sites_DataKey_09-17-2025.2aa41c8307cb.xlsx" target="_blank" rel="noopener noreferrer">data keys</a>
+  for the Interconnected raw data
+  <a href="data-hub/">here</a>.
+</p>
+    </div>
+  </div>
 
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
-              <span>What is "Low Income"?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" id="faq-answer-4" hidden>
-              <p>Eligibility is defined by properties qualifying as affordable housing or households meeting annual income limits set by the California Alternate Rates for Energy (CARE) or Family Electric Rate Assistance (FERA) guidelines.</p>
-            </div>
-          </div>
+  <!-- 2 -->
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
+      <span>Are there any other exclusions?</span>
+      <span class="faq-icon" aria-hidden="true">+</span>
+    </button>
+    <div class="faq-answer" id="faq-answer-2" hidden>
+      <p>The Low-Income data filters out the following:</p>
+      <ul>
+        <li>Only applications with a Current Application Status of <strong>“Completed”</strong> are processed.</li>
+        <li>Any record with $0 or null <strong>Total System Cost</strong> or 0 kW <strong>CEC PTC Rating (KW)</strong> is discarded.</li>
+        <li>Any record where <strong>Incentive Amount</strong> exceeds <strong>Total System Cost</strong> (paid &gt; cost) is excluded.</li>
+        <li>Strict regex enforcement (<code>^\d{5}$</code>) removes any entry that is not a clean, 5-digit number, effectively purging alphabetic or international placeholders.</li>
+      </ul>
 
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
-              <span>What are PG&amp;E, SCE, and SDGE?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" id="faq-answer-5" hidden>
-              <p>PG&amp;E, SCE, and SDG&amp;E are the three primary California Investor Owned Utilities (IOUs) that manage the Pacific Gas &amp; Electric, Southern California Edison, and San Diego Gas &amp; Electric service territories.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+     <p>
+  Read more on
+  <a href="assets/Low-Income.pdf" target="_blank" rel="noopener noreferrer">data processing</a>
+  and
+  <a href="https://www.californiadgstats.ca.gov/static/documents/low-income/LowIncome_Applications_DataKey.ac918e89f686.xlsx" target="_blank" rel="noopener noreferrer">data keys</a>
+  for the Low-Income raw data
+  <a href="data-hub/">here</a>.
+</p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
+      <span>How often is this data refreshed?</span>
+      <span class="faq-icon" aria-hidden="true">+</span>
+    </button>
+    <div class="faq-answer" id="faq-answer-3" hidden>
+      <p>
+        The Low-Income incentive data is updated weekly on Thursday mornings. The broader Interconnection market data is updated monthly.
+      </p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
+      <span>How are the two datasets linked?</span>
+      <span class="faq-icon" aria-hidden="true">+</span>
+    </button>
+    <div class="faq-answer" id="faq-answer-4" hidden>
+      <p>
+        Because the “Interconnected” data and “Low-Income” data live in separate databases, we link them using ZIP as the common denominator.
+        By aggregating both datasets to the ZIP level, we can compare how much public money was spent in a neighborhood versus the total solar activity in that same area.
+      </p>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
+      <span>Why do these low-income incentives exist?</span>
+      <span class="faq-icon" aria-hidden="true">+</span>
+    </button>
+    <div class="faq-answer" id="faq-answer-5" hidden>
+      <p>
+        In 2006, California passed Assembly Bill (AB) 2723, which mandated that at least 10% of all state solar funds must benefit low-income properties.
+        Later, AB 217 (2013) extended these programs with an additional $108 million to ensure solar wasn’t just for wealthy homeowners.
+      </p>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
+      <span>What is “Low Income”?</span>
+      <span class="faq-icon" aria-hidden="true">+</span>
+    </button>
+    <div class="faq-answer" id="faq-answer-6" hidden>
+      <p>
+        Eligibility is defined by properties qualifying as affordable housing or households meeting annual income limits set by the California Alternate Rates for Energy (CARE)
+        or Family Electric Rate Assistance (FERA) guidelines. This project focuses exclusively on the “modern era” of state-funded low-income solar initiatives:
+        MASH, SASH, and DAC-SASH.
+      </p>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
+      <span>Who pays for these subsidies?</span>
+      <span class="faq-icon" aria-hidden="true">+</span>
+    </button>
+    <div class="faq-answer" id="faq-answer-7" hidden>
+      <p>
+        These programs are overseen by the California Public Utilities Commission (CPUC) and are funded by the customers of the state’s large electric utilities
+        (PG&amp;E, SCE, and SDG&amp;E).
+      </p>
+    </div>
+  </div>
+</div>
+
     </section>
   </main>
 
